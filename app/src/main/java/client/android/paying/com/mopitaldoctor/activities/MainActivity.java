@@ -2,15 +2,12 @@ package client.android.paying.com.mopitaldoctor.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Region;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.getpoi.beacon.PoiService;
 
@@ -44,6 +41,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
+        final String ID = "Name" + Math.random();
+
         startServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +50,7 @@ public class MainActivity extends Activity {
                 Intent service = new Intent(MainActivity.this, PoiService.class);
                 service.putExtra(PoiService.ACTION_KEY, PoiService.START_SERVICE);
                 service.putExtra(PoiService.SECRET_KEY, MOPITAL_SECRET_KEY);
-                service.putExtra(PoiService.UNIQUE_ID_KEY, "userUniqueId");
+                service.putExtra(PoiService.UNIQUE_ID_KEY, ID);
                 startService(service);
             }
         });
@@ -62,7 +61,7 @@ public class MainActivity extends Activity {
                 final Intent service = new Intent(MainActivity.this, PoiService.class);
                 service.putExtra(PoiService.ACTION_KEY, PoiService.SEND_USER_DATA);
                 service.putExtra(PoiService.SECRET_KEY, MOPITAL_SECRET_KEY);
-                service.putExtra(PoiService.UNIQUE_ID_KEY, "userUniqueId");
+                service.putExtra(PoiService.UNIQUE_ID_KEY, ID);
                 service.putExtra(PoiService.NAME, "Name");
                 service.putExtra(PoiService.SURNAME, "Surname");
                 service.putExtra(PoiService.EMAIL, "Email");
