@@ -1,28 +1,27 @@
 package client.android.paying.com.mopitaldoctor.activities;
 
 import android.app.Activity;
+import android.graphics.Region;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import client.android.paying.com.mopitaldoctor.R;
 
 
 public class MainActivity extends Activity {
 
-    @InjectView(R.id.text)
-    TextView textview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-
-        textview.setText("Butter Knife sample");
     }
 
 
@@ -44,4 +43,5 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
