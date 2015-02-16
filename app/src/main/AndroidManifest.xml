@@ -32,9 +32,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".core.BeaconBroadCastReceiver" >
-        </receiver>
-
         <service android:name="com.getpoi.beacon.PoiService" />
         <receiver
             android:name="com.getpoi.beacon.PoiBroadcastReceiver"
@@ -43,6 +40,9 @@
                 <action android:name="com.getpoi.beacon.RECEIVE" />
             </intent-filter>
 
+        </receiver>
+
+        <receiver android:name="client.android.paying.com.mopitaldoctor.core.BeaconBroadCastReceiver" >
         </receiver>
     </application>
 
