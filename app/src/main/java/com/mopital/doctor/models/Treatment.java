@@ -1,4 +1,4 @@
-package models;
+package com.mopital.doctor.models;
 
 /**
  * Created by AlperCem on 28.2.2015.

@@ -1,4 +1,4 @@
-package fragments;
+package com.mopital.doctor.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,13 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import client.android.paying.com.mopitaldoctor.R;
-import models.Patient;
-import models.Treatment;
+import com.mopital.doctor.R;
+import com.mopital.doctor.models.Patient;
 
 /**
  * Created by AlperCem on 28.2.2015.
@@ -63,12 +60,12 @@ public class PatientFragment extends Fragment {
 
     public void updateInfo(Patient patient){
         ((TextView)getView().findViewById(R.id.patient_name)).setText(patient.getName());
-        ((TextView)getView().findViewById(R.id.patient_blood_type)).setText(patient.getBloodType());
-        ((TextView)getView().findViewById(R.id.patient_admission_date)).setText(patient.getAdmissionDate());
-        ((TextView)getView().findViewById(R.id.patient_file_no)).setText(patient.getFileNo());
-        ((TextView)getView().findViewById(R.id.patient_age)).setText(patient.getAge());
-        ((TextView)getView().findViewById(R.id.patient_weight)).setText(patient.getWeight());
-        ((TextView)getView().findViewById(R.id.patient_height)).setText(patient.getHeight());
+        ((TextView)getView().findViewById(R.id.patient_blood_type)).setText(patient.getBlood_type());
+        ((TextView)getView().findViewById(R.id.patient_admission_date)).setText(patient.getAdmission_date());
+        ((TextView)getView().findViewById(R.id.patient_file_no)).setText(patient.getFile_no());
+        ((TextView)getView().findViewById(R.id.patient_age)).setText(String.valueOf(patient.getAge()));
+        ((TextView)getView().findViewById(R.id.patient_weight)).setText(String.valueOf(patient.getWeight()));
+        ((TextView)getView().findViewById(R.id.patient_height)).setText(String.valueOf(patient.getHeight()));
     }
 
     @Override

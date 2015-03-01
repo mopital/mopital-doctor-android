@@ -1,18 +1,17 @@
-package adapters;
+package com.mopital.doctor.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
 
-import client.android.paying.com.mopitaldoctor.R;
-import models.Patient;
-import models.Treatment;
+import com.mopital.doctor.R;
+import com.mopital.doctor.models.Patient;
+import com.mopital.doctor.models.Treatment;
 
 /**
  * Created by AlperCem on 28.2.2015.

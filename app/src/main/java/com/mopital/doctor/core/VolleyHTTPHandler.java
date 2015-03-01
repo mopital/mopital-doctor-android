@@ -1,4 +1,4 @@
-package client.android.paying.com.mopitaldoctor.core;
+package com.mopital.doctor.core;
 
 import android.content.Context;
 import android.graphics.Bitmap;

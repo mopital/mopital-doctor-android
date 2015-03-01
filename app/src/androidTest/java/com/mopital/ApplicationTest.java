@@ -1,4 +1,4 @@
-package client.android.paying.com.mopitaldoctor;
+package com.mopital;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
