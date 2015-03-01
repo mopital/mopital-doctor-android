@@ -9,33 +9,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:layout_width="wrap_content"
+    <fragment
         android:layout_height="wrap_content"
-        android:text="start service"
-        android:id="@+id/startServiceBtn"/>
-    <Button
-        android:id="@+id/sendUserInfo"
-        android:text="sendUserInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/sendNotificationToken"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sendNotificationToken" />
-
-    <Button
-        android:id="@+id/stopServiceBtn"
-        android:text="stopService"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:name="fragments.PatientFragment"
+        android:id="@+id/main_page_patient_fragment"></fragment>
 
 </LinearLayout>
