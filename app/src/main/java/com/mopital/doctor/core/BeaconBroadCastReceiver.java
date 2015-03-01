@@ -16,8 +16,6 @@ import java.util.List;
 
 import com.mopital.doctor.R;
 import com.mopital.doctor.activities.MainActivity;
-import com.mopital.doctor.core.volley.requests.BaseVolleyRequest;
-import com.mopital.doctor.core.volley.responses.VolleyFailWrapper;
 import com.mopital.doctor.fragments.PatientFragment;
 import com.mopital.doctor.models.Patient;
 
@@ -37,55 +35,21 @@ public class BeaconBroadCastReceiver extends PoiBroadcastReceiver {
             for (Pois beacon : beacons) {
                 Log.i("Poi found", "major: " + beacon.majorId + " minor: " + beacon.minorId);
 
-                String url = "http://mopital.herokuapp.com/api/beacon/get/patient/123";
-
-                BaseVolleyRequest<Patient> getUserRequest = new BaseVolleyRequest<Patient>(url, Patient.class, null, new Response.Listener<Patient>() {
+                Response.Listener<Patient> patientListener = new Response.Listener<Patient>() {
                     @Override
                     public void onResponse(Patient patient) {
                         ((PatientFragment)MainActivity.activity.getFragmentManager().findFragmentById(R.id.main_page_patient_fragment)).updateInfo(patient);
                     }
-                }, new Response.ErrorListener() {
+                };
+                Response.ErrorListener errorListener = new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //it is possible to cast error to VolleyFailWrapper -> ((VolleyFailWrapper)error).getResult()
                         Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                };
 
-
-//                    JsonObjectRequest jsObjRequest = new JsonObjectRequest
-//                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//
-//                            @Override
-//                            public void onResponse(JSONObject response) {
-//                                try {
-//                                    JSONObject object = (JSONObject) response.getJSONObject("data");
-//
-//                                    String name = object.getString("name");
-//                                    int  age = object.getInt("age");
-//                                    double weight = object.getDouble("weight");
-//                                    double height = object.getDouble("height");
-//                                    String bloodType = object.getString("blood_type");
-//                                    String fileNo = object.getString("file_no");
-//                                    String admissionDate = object.getString("admission_date");
-//
-//                                    Patient patient = new Patient(name, bloodType, fileNo, admissionDate, age+"", weight+"", height+"", new ArrayList<Treatment>());
-//                                    ((PatientFragment)MainActivity.activity.getFragmentManager().findFragmentById(R.id.main_page_patient_fragment)).updateInfo(patient);
-//
-//                                }
-//                                catch(JSONException ex){
-//                                    ex.printStackTrace();
-//                                }
-//                            }
-//                        }, new Response.ErrorListener() {
-//
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//
-//                            }
-//                        });
-
-                VolleyHTTPHandler.getInstance(context).addToRequestQueue(getUserRequest);
+                ServerApiProvider.serverApi().getUser(context, "123", patientListener, errorListener);
 
             }
 
