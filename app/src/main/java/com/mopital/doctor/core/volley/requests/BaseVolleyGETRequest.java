@@ -21,7 +21,7 @@ import com.mopital.doctor.core.volley.responses.VolleyFailWrapper;
 /**
  * Created by ahmetkucuk on 01/03/15.
  */
-public class BaseVolleyRequest<T> extends Request<T> {
+public class BaseVolleyGETRequest<T> extends Request<T> {
 
     private final Gson gson = new Gson();
     private final Class<T> clazz;
@@ -29,8 +29,8 @@ public class BaseVolleyRequest<T> extends Request<T> {
     private final Response.Listener<T> listener;
 
 
-    public BaseVolleyRequest(String url, Class<T> clazz, Map<String, String> headers,
-                             Response.Listener<T> listener, Response.ErrorListener errorListener) {
+    public BaseVolleyGETRequest(String url, Class<T> clazz, Map<String, String> headers,
+                                Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.clazz = clazz;
         this.headers = headers;

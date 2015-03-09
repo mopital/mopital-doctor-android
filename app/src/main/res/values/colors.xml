@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="shadow_start">#FFF</color>
+    <color name="shadow_end">#DBD9DA</color>
+    <color name="app_color_light_transparent">#66BFE9F2</color>
+    <color name="app_color_dark_transparent">#668DDFF2</color>
+    <color name="app_color_light">#BFE9F2</color>
+    <color name="app_color_dark">#8DDFF2</color>
+    <color name="app_text_color_dark">#13849E</color>
+    <color name="app_text_color_light">#1AC8F0</color>
+    <color name="app_default_text_color_dark">#707273</color>
+    <color name="app_default_text_color_light">#B6B9BA</color>
+    <color name="transparent_color_hint">#00000000</color>
+    <color name="app_background_color">#fff3f3f3</color>
+</resources>
