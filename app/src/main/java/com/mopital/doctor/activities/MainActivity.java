@@ -3,28 +3,27 @@ package com.mopital.doctor.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.getpoi.beacon.PoiService;
+import com.mopital.doctor.R;
+import com.mopital.doctor.fragments.NavigationDrawerFragment;
 
 import butterknife.ButterKnife;
-import com.mopital.doctor.R;
-import com.mopital.doctor.core.ServerApiProvider;
-import com.mopital.doctor.fragments.PatientFragment;
-import com.mopital.doctor.models.Patient;
-
+import butterknife.InjectView;
 
 public class MainActivity extends ActionBarActivity {
+
+    @InjectView(R.id.app_bar)
+    Toolbar toolbar;
 
     private static final String TAG = "MainActivity";
     private static final String MOPITAL_SECRET_KEY = "684AE112-170A-4BE8-A30B-C2F0BD17109F";
     public static Activity activity;
-
 
     final String ID = "userUniqueIdTest1";
 
@@ -34,6 +33,12 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         activity = this;
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
     }
 
     @Override

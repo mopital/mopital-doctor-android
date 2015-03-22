@@ -2,76 +2,102 @@ package com.mopital.doctor.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.mopital.doctor.R;
+import com.mopital.doctor.activities.PatientActivity;
+import com.mopital.doctor.adapters.PatientListAdapter;
+import com.mopital.doctor.core.DefaultServerApi;
+import com.mopital.doctor.core.Global;
+import com.mopital.doctor.core.ServerApi;
+import com.mopital.doctor.core.ServerApiProvider;
+import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.models.Patient;
+import com.mopital.doctor.models.wrappers.PatientListWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by AlperCem on 28.2.2015.
  */
-public class PatientFragment extends Fragment {
+public class PatientFragment extends Fragment implements ListView.OnItemClickListener {
 
-    @InjectView(R.id.patient_name)
-    TextView patientNameTV;
+    @InjectView(R.id.patient_LV)
+    ListView patientLV;
 
-    @InjectView(R.id.patient_blood_type)
-    TextView patientBloodTypeTV;
+    private ServerApi api;
+    private Context context;
 
-    @InjectView(R.id.patient_file_no)
-    TextView patientFileNoTV;
-
-    @InjectView(R.id.patient_admission_date)
-    TextView patientAdmissionDateTV;
-
-    @InjectView(R.id.patient_age)
-    TextView patientAgeTV;
-
-    @InjectView(R.id.patient_weight)
-    TextView patientWeightTV;
-
-    @InjectView(R.id.patient_height)
-    TextView patientHeightTV;
-
-    @InjectView(R.id.treatment_list)
-    ListView treatmentListView;
-
-    private Activity activity;
     private static PatientFragment mFragment;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = activity;
-    }
-
     public static PatientFragment getInstance(){
-      if(mFragment ==null)
+      if(mFragment == null)
         mFragment = new PatientFragment();
         return mFragment;
     }
 
-    public void updateInfo(Patient patient){
-        ((TextView)getView().findViewById(R.id.patient_name)).setText(patient.getName());
-        ((TextView)getView().findViewById(R.id.patient_blood_type)).setText(patient.getBlood_type());
-        ((TextView)getView().findViewById(R.id.patient_admission_date)).setText(patient.getAdmission_date());
-        ((TextView)getView().findViewById(R.id.patient_file_no)).setText(patient.getFile_no());
-        ((TextView)getView().findViewById(R.id.patient_age)).setText(String.valueOf(patient.getAge()));
-        ((TextView)getView().findViewById(R.id.patient_weight)).setText(String.valueOf(patient.getWeight()));
-        ((TextView)getView().findViewById(R.id.patient_height)).setText(String.valueOf(patient.getHeight()));
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        context = activity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_patient, container, false);
         ButterKnife.inject(this, view);
+        patientLV.setOnItemClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        api = ServerApiProvider.serverApi();
+        getPatientInformation();
+    }
+
+    private static final String TAG= PatientFragment.class.getName();
+    public void getPatientInformation(){
+        api.getAllPatients(context, new Response.Listener<PatientListWrapper>() {
+                    @Override
+                    public void onResponse(PatientListWrapper response) {
+                        PatientListAdapter adapter = new PatientListAdapter(context,
+                                R.layout.patient_list_view_item, response.getPatientList());
+                        Global.patientList = response.getPatientList();
+                        patientLV.setAdapter(adapter);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        );
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Patient selectedPatient = Global.patientList.get(position);
+        Global.activePatient = selectedPatient;
+        Intent intent = new Intent(view.getContext(), PatientActivity.class);
+        view.getContext().startActivity(intent);
     }
 }

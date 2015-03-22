@@ -7,6 +7,10 @@ import com.mopital.doctor.core.volley.requests.BaseVolleyGETRequest;
 import com.mopital.doctor.core.volley.requests.BaseVolleyPOSTRequest;
 import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.models.Patient;
+import com.mopital.doctor.models.wrappers.PatientListWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,8 +25,7 @@ public class DefaultServerApi implements ServerApi {
     private static final String GET_PATIENT_BY_BEACON_UUID_URL = BASE_API_URL + "beacon/get/patient/";
     private static final String SIGN_IN_URL = BASE_API_URL + "user/login";
     private static final String SIGN_UP_URL = BASE_API_URL + "user/register";
-
-
+    private static final String GET_ALL_PATIENTS_URL = BASE_API_URL + "allPatients";
 
     public void getUser(Context context, String userId, Response.Listener<Patient> patientListener, Response.ErrorListener errorListener) {
 
@@ -41,10 +44,19 @@ public class DefaultServerApi implements ServerApi {
 
     public void signIn(Context context, String email, String password, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
 
-        BaseVolleyPOSTRequest<Result> signUpRequest = new BaseVolleyPOSTRequest<Result>(SIGN_IN_URL, Result.class, null, listener, errorListener);
+        BaseVolleyPOSTRequest<Result> signInRequest = new BaseVolleyPOSTRequest<Result>(SIGN_IN_URL, Result.class, null, listener, errorListener);
 
-        VolleyHTTPHandler.getInstance(context).addToRequestQueue(signUpRequest);
+        VolleyHTTPHandler.getInstance(context).addToRequestQueue(signInRequest);
     }
+
+    @Override
+    public void getAllPatients(Context context, Response.Listener<PatientListWrapper> listener, Response.ErrorListener errorListener) {
+
+        BaseVolleyGETRequest<PatientListWrapper> getAllPatientsRequest = new BaseVolleyGETRequest<PatientListWrapper>(GET_ALL_PATIENTS_URL, PatientListWrapper.class, null, listener, errorListener);
+
+        VolleyHTTPHandler.getInstance(context).addToRequestQueue(getAllPatientsRequest);
+    }
+
 }
 
 

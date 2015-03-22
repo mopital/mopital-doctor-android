@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.mopital.doctor.R;
 import com.mopital.doctor.activities.MainActivity;
+import com.mopital.doctor.activities.PatientActivity;
 import com.mopital.doctor.fragments.PatientFragment;
 import com.mopital.doctor.models.Patient;
 
@@ -38,7 +39,12 @@ public class BeaconBroadCastReceiver extends PoiBroadcastReceiver {
                 Response.Listener<Patient> patientListener = new Response.Listener<Patient>() {
                     @Override
                     public void onResponse(Patient patient) {
-                        ((PatientFragment)MainActivity.activity.getFragmentManager().findFragmentById(R.id.main_page_patient_fragment)).updateInfo(patient);
+                        /*
+                        Global.activePatient = patient;
+                        Intent intent = new Intent(context, PatientActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);*/
+
                     }
                 };
                 Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -50,7 +56,6 @@ public class BeaconBroadCastReceiver extends PoiBroadcastReceiver {
                 };
 
                 ServerApiProvider.serverApi().getUser(context, "123", patientListener, errorListener);
-
             }
 
         } else {
@@ -58,6 +63,5 @@ public class BeaconBroadCastReceiver extends PoiBroadcastReceiver {
             Log.i("Campaign data received", data.getBody() + " " + data.getTitle());
             //sendNotification(data.getTitle(), data.getBody(), data.getUrl(), context);
         }
-
     }
 }

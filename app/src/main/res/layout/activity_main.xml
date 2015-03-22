@@ -1,16 +1,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical">
 
-    <fragment
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:name="com.mopital.doctor.fragments.PatientFragment"
-        android:id="@+id/main_page_patient_fragment"></fragment>
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"></include>
 
+    <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
+
+            <fragment
+                android:id="@+id/patient_fragment"
+                android:name="com.mopital.doctor.fragments.PatientFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/fragment_patient"></fragment>
+        </FrameLayout>
+
+        <fragment
+            android:id="@+id/fragment_navigation_drawer"
+            android:name="com.mopital.doctor.fragments.NavigationDrawerFragment"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:layout="@layout/fragment_navigation_drawer"
+            tools:layout="@layout/fragment_navigation_drawer" />
+
+    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
