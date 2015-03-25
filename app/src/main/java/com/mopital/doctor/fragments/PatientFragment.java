@@ -39,6 +39,8 @@ import java.util.List;
  */
 public class PatientFragment extends Fragment implements ListView.OnItemClickListener {
 
+    private static final String TAG= PatientFragment.class.getName();
+
     @InjectView(R.id.patient_LV)
     ListView patientLV;
 
@@ -74,7 +76,6 @@ public class PatientFragment extends Fragment implements ListView.OnItemClickLis
         getPatientInformation();
     }
 
-    private static final String TAG= PatientFragment.class.getName();
     public void getPatientInformation(){
         api.getAllPatients(context, new Response.Listener<PatientListWrapper>() {
                     @Override

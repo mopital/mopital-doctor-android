@@ -16,14 +16,14 @@ import com.mopital.doctor.models.Treatment;
 /**
  * Created by AlperCem on 28.2.2015.
  */
-public class TreatmentAdapter extends ArrayAdapter<Patient> {
+public class TreatmentAdapter extends ArrayAdapter<Treatment> {
 
     private Context context;
     private List<Treatment> values;
     private int resource;
 
     public TreatmentAdapter(Context context, int resource, List<Treatment> values) {
-        super(context, resource);
+        super(context, resource, values);
         this.context = context;
         this.values = values;
         this.resource = resource;
@@ -59,7 +59,7 @@ public class TreatmentAdapter extends ArrayAdapter<Patient> {
         holder.pulseTV.setText(values.get(position).getPulse());
         holder.respirationTV.setText(values.get(position).getRespiration());
         holder.painTV.setText(values.get(position).getPain());
-        holder.treatmentTV.setText(values.get(position).getTreatment());
+        holder.treatmentTV.setText(values.get(position).getDefinition());
 
         return convertView;
     }

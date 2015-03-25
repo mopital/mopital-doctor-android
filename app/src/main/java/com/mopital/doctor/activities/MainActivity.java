@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.getpoi.beacon.PoiService;
 import com.mopital.doctor.R;
 import com.mopital.doctor.fragments.NavigationDrawerFragment;
+import com.mopital.doctor.utils.Constants;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -41,6 +42,11 @@ public class MainActivity extends ActionBarActivity {
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
     }
 
+    private void callLoginActivity() {
+        Intent i = new Intent(MainActivity.this, SignInActivity.class);
+        startActivityForResult(i, Constants.SIGN_IN_REQUEST_CODE);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -59,16 +65,12 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;

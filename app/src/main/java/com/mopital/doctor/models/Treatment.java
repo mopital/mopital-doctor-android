@@ -12,7 +12,7 @@ public class Treatment {
     private String pulse;
     private String respiration;
     private String pain;
-    private String treatment;
+    private String definition;
 
     public Treatment(String date, String time, String tension, String temperature, String pulse, String respiration, String pain, String treatment) {
         this.date = date;
@@ -22,7 +22,7 @@ public class Treatment {
         this.pulse = pulse;
         this.respiration = respiration;
         this.pain = pain;
-        this.treatment = treatment;
+        this.definition = treatment;
     }
 
     public String getDate() {
@@ -81,11 +81,11 @@ public class Treatment {
         this.pain = pain;
     }
 
-    public String getTreatment() {
-        return treatment;
+    public String getDefinition() {
+        return definition;
     }
 
-    public void setTreatment(String treatment) {
-        this.treatment = treatment;
+    public void setDefinition(String treatment) {
+        this.definition = treatment;
     }
 }
