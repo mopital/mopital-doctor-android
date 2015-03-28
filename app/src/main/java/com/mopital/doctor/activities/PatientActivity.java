@@ -20,7 +20,7 @@ import butterknife.InjectView;
 /**
  * Created by AlperCem on 21.3.2015.
  */
-public class PatientActivity extends ActionBarActivity{
+public class PatientActivity extends ActionBarActivity {
 
     @InjectView(R.id.app_bar)
     Toolbar toolbar;
@@ -43,6 +43,7 @@ public class PatientActivity extends ActionBarActivity{
         getSupportActionBar().setTitle(Global.activePatient.getName());
 
         mViewPager.setAdapter(new PatientActivityPagerAdapter((getSupportFragmentManager())));
+        mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mViewPager);
     }
 
