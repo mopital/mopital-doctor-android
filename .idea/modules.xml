@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MopitalDoctor.iml" filepath="$PROJECT_DIR$/MopitalDoctor.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mopital-doctor-android.iml" filepath="$PROJECT_DIR$/mopital-doctor-android.iml" />
     </modules>
   </component>
 </project>
