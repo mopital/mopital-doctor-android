@@ -43,7 +43,7 @@ public class PatientActivity extends ActionBarActivity {
         getSupportActionBar().setTitle(Global.activePatient.getName());
 
         mViewPager.setAdapter(new PatientActivityPagerAdapter((getSupportFragmentManager())));
-        mTabs.setDistributeEvenly(true);
+        //mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mViewPager);
     }
 

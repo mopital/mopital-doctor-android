@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.mopital.doctor.fragments.PatientDissectionFragment;
+import com.mopital.doctor.fragments.NurseRecordsFragment;
 import com.mopital.doctor.fragments.PatientProfileFragment;
 import com.mopital.doctor.fragments.PatientTreatmentFragment;
 
@@ -25,7 +25,7 @@ public class PatientActivityPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return new PatientTreatmentFragment();
             case 2:
-                return new PatientDissectionFragment();
+                return new NurseRecordsFragment();
         }
         return null;
     }
@@ -38,7 +38,7 @@ public class PatientActivityPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return "Treatments";
             case 2:
-                return "Dissection";
+                return "Nurse Records";
         }
         return "";
     }

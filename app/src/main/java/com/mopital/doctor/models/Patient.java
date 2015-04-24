@@ -17,6 +17,15 @@ public class Patient {
     private String file_no;
     private String admission_date;
     private List<Treatment> treatments;
+    private NurseRecords nurseRecords;
+
+    public NurseRecords getNurseRecords() {
+        return nurseRecords;
+    }
+
+    public void setNurseRecords(NurseRecords nurseRecords) {
+        this.nurseRecords = nurseRecords;
+    }
 
     public String getId() {
         return id;

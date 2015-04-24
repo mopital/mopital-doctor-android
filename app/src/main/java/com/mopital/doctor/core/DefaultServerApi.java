@@ -25,7 +25,7 @@ public class DefaultServerApi implements ServerApi {
     private static final String GET_PATIENT_BY_BEACON_UUID_URL = BASE_API_URL + "beacon/get/patient/";
     private static final String SIGN_IN_URL = BASE_API_URL + "user/login";
     private static final String SIGN_UP_URL = BASE_API_URL + "user/register";
-    private static final String GET_ALL_PATIENTS_URL = BASE_API_URL + "allPatients";
+    private static final String GET_ALL_PATIENTS_URL = BASE_API_URL + "patient/all";
 
     public void getUser(Context context, String userId, Response.Listener<Patient> patientListener, Response.ErrorListener errorListener) {
 
