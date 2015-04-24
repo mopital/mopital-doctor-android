@@ -19,9 +19,12 @@ import com.mopital.doctor.core.Global;
 import com.mopital.doctor.models.NurseRecords;
 import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.PatientPain;
+import com.mopital.doctor.view.controllers.BloodSugarMonitoringPopupController;
+import com.mopital.doctor.view.controllers.PeriodicMonitoringPopupController;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by AlperCem on 21.3.2015.
@@ -62,10 +65,23 @@ public class NurseRecordsFragment extends Fragment {
     @InjectView(R.id.periodic_monitoring_Button)
     Button periodicMonitoringLV;
 
+    @OnClick(R.id.blood_sugar_monitoring_Button)
+    public void bloodSugarButtonClick(View view) {
+        BloodSugarMonitoringPopupController controller = new BloodSugarMonitoringPopupController(context, Global.activePatient.getNurseRecords().getBloodSugarMonitoringRecords());
+        controller.showPopup();
+    }
+
+    @OnClick(R.id.periodic_monitoring_Button)
+    public void periodicButtonClick(View view) {
+        PeriodicMonitoringPopupController controller2 = new PeriodicMonitoringPopupController(context, Global.activePatient.getNurseRecords().getPeriodicMonitoringRecords());
+        controller2.showPopup();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nurse_records, container, false);
         ButterKnife.inject(this, view);
+
         return view;
     }
 
@@ -94,24 +110,5 @@ public class NurseRecordsFragment extends Fragment {
         this.region.setText(patientPain.getRegion());
         this.typeOfPain.setText(patientPain.getTypeOfPain());
         this.duration.setText(patientPain.getDuration());
-
-        /*
-        BloodSugarMonitoringAdapter adapter = new BloodSugarMonitoringAdapter(context,
-                R.layout.blood_sugar_monitoring_item, records.getBloodSugarMonitoringRecords());
-        bloodSugarLV.setAdapter(adapter);
-
-        PeriodicMonitoringAdapter adapter2 = new PeriodicMonitoringAdapter(context,
-                R.layout.periodic_monitoring_item, records.getPeriodicMonitoringRecords());
-        periodicMonitoringLV.setAdapter(adapter2);
-       */
-    }
-
-    public void buttonClicked(View v){
-        switch(v.getId()){
-            case R.id.blood_sugar_monitoring_Button:
-                break;
-            case R.id.periodic_monitoring_Button:
-                break;
-        }
     }
 }

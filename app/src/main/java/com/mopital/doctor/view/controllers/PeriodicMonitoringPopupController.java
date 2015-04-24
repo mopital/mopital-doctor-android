@@ -10,6 +10,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mopital.doctor.R;
+import com.mopital.doctor.adapters.BloodSugarMonitoringAdapter;
+import com.mopital.doctor.adapters.PeriodicMonitoringAdapter;
+import com.mopital.doctor.models.PeriodicMonitoring;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +27,11 @@ public class PeriodicMonitoringPopupController {
     private Dialog dialog = null;
     private View dialogView = null;
     private WarningPopupViewHolder warningPopupViewHolder;
+    private List<PeriodicMonitoring> data;
 
-    public PeriodicMonitoringPopupController(Context context) {
+    public PeriodicMonitoringPopupController(Context context, List<PeriodicMonitoring> data) {
         this.context = context;
+        this.data = data;
 
         dialog = new Dialog(context);
         dialogView = LayoutInflater.from(context).inflate(R.layout.popup_patient_record_detail, null);
@@ -35,7 +40,7 @@ public class PeriodicMonitoringPopupController {
         dialog.setContentView(dialogView);
     }
 
-    public void showPopup(List data) {
+    public void showPopup() {
 
         if(data == null || data.size() == 0) {
             if(dialog.isShowing()) {
@@ -48,7 +53,8 @@ public class PeriodicMonitoringPopupController {
             warningPopupViewHolder = new WarningPopupViewHolder(dialogView);
         }
 
-        warningPopupViewHolder.getWarningListView().setAdapter(null);
+        PeriodicMonitoringAdapter adapter = new PeriodicMonitoringAdapter(context, R.layout.periodic_monitoring_item, data);
+        warningPopupViewHolder.getWarningListView().setAdapter(adapter);
         warningPopupViewHolder.getCloseWarningsButton().setOnClickListener(onCloseWarningClickListener);
 
         dialog.show();
