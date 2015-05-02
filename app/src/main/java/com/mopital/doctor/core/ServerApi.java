@@ -29,4 +29,8 @@ public interface ServerApi {
     public void getAllEquipments(Context context, Response.Listener<EquipmentListWrapper> equipmentListener, Response.ErrorListener errorListener);
 
     public void getLastLocationOfEquipment(Context context, Response.Listener<EquipmentPosition> listener, Response.ErrorListener errorListener);
+
+    public void sendGcmId(Context context, String email, String gcmId, Response.Listener<Result> listener, Response.ErrorListener errorListener);
+
+    public void notifyUser(Context context, String email, String message, Response.Listener<Result> listener, Response.ErrorListener errorListener);
 }

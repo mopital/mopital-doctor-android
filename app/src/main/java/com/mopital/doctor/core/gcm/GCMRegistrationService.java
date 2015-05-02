@@ -36,16 +36,21 @@ public class GCMRegistrationService {
     AtomicInteger msgId = new AtomicInteger();
     SharedPreferences prefs;
     String regid;
+    private boolean isBinded = false;
 
-    private Activity activity;
+    private Context context;
 
-    public GCMRegistrationService(Activity activity) {
-        this.activity = activity;
+    public GCMRegistrationService(Context context) {
+        this.context = context;
         // Check device for Play Services APK. If check succeeds, proceed with
         //  GCM registration.
+
+    }
+
+    public void register() {
         if (checkPlayServices()) {
-            gcm = GoogleCloudMessaging.getInstance(activity);
-            regid = getRegistrationId(activity);
+            gcm = GoogleCloudMessaging.getInstance(context);
+            regid = getRegistrationId(context);
 
             if (regid.isEmpty()) {
                 registerInBackground();
@@ -56,10 +61,11 @@ public class GCMRegistrationService {
     }
 
     /**
-     * Activity is unbinded so stop all operations
+     * Call this method before application closed
+     * Context is unbinded so stop all operations
      */
     public void onUnbind() {
-
+        isBinded = false;
     }
 
     /**
@@ -68,11 +74,11 @@ public class GCMRegistrationService {
      * the Google Play Store or enable it in the device's system settings.
      */
     private boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, activity,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+//                GooglePlayServicesUtil.getErrorDialog(resultCode, context,
+//                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
                 Log.i(TAG, "This device is not supported.");
             }
@@ -114,7 +120,7 @@ public class GCMRegistrationService {
     private SharedPreferences getGCMPreferences(Context context) {
         // This sample app persists the registration ID in shared preferences, but
         // how you store the registration ID in your app is up to you.
-        return activity.getSharedPreferences(GCM_STORAGE,
+        return context.getSharedPreferences(GCM_STORAGE,
                 Context.MODE_PRIVATE);
     }
 
@@ -146,7 +152,7 @@ public class GCMRegistrationService {
                 String msg = "";
                 try {
                     if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(activity);
+                        gcm = GoogleCloudMessaging.getInstance(context);
                     }
                     regid = gcm.register(SENDER_ID);
                     msg = "Device registered, registration ID=" + regid;
@@ -162,7 +168,8 @@ public class GCMRegistrationService {
                     // message using the 'from' address in the message.
 
                     // Persist the registration ID - no need to register again.
-                    storeRegistrationId(activity, regid);
+                    if(isBinded)
+                        storeRegistrationId(context.getApplicationContext(), regid);
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
                     // If there is an error, don't just keep trying to register.

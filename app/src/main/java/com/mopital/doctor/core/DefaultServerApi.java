@@ -1,6 +1,7 @@
 package com.mopital.doctor.core;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Response;
 import com.mopital.doctor.core.volley.requests.BaseVolleyGETRequest;
@@ -11,6 +12,8 @@ import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
 
+import org.json.JSONObject;
+
 
 /**
  * Created by AlperCem on 18.2.2015.
@@ -18,6 +21,8 @@ import com.mopital.doctor.models.wrappers.PatientListWrapper;
  * default implementation of server api
  */
 public class DefaultServerApi implements ServerApi {
+
+    private static final String TAG = "DefaultServerApi";
 
     private static final String BASE_API_URL = "http://mopital.herokuapp.com/api/";
     private static final String GET_USER_URL = BASE_API_URL + "user/";
@@ -27,6 +32,8 @@ public class DefaultServerApi implements ServerApi {
     private static final String GET_ALL_PATIENTS_URL = BASE_API_URL + "patient/all";
     private static final String GET_ALL_EQUIPMENTS_URL = BASE_API_URL + "equipment/all";
     private static final String GET_LAST_POSITION_OF_EQUIPMENT_URL = BASE_API_URL + "equipment/last/position/";
+    private static final String SAVE_GCM_URL = BASE_API_URL + "user/save/gcm";
+    private static final String NOTIFY_USER_URL = BASE_API_URL + "user/notify";
 
     public void getUser(Context context, String userId, Response.Listener<Patient> patientListener, Response.ErrorListener errorListener) {
 
@@ -37,14 +44,30 @@ public class DefaultServerApi implements ServerApi {
 
     public void signUp(Context context, String userName, String password, String email, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
 
-        BaseVolleyPOSTRequest<Result> signUpRequest = new BaseVolleyPOSTRequest<Result>(SIGN_UP_URL, Result.class, null, listener, errorListener);
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("userName", userName);
+            requestBody.put("email", email);
+            requestBody.put("password", password);
+        }catch (Exception e) {
+            Log.e(TAG, "exception", e);
+        }
+        BaseVolleyPOSTRequest<Result> signUpRequest = new BaseVolleyPOSTRequest<Result>(SIGN_UP_URL, requestBody.toString(), Result.class, null, listener, errorListener);
 
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(signUpRequest);
     }
 
     public void signIn(Context context, String email, String password, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
 
-        BaseVolleyPOSTRequest<Result> signInRequest = new BaseVolleyPOSTRequest<Result>(SIGN_IN_URL, Result.class, null, listener, errorListener);
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("email", email);
+            requestBody.put("password", password);
+        }catch (Exception e) {
+            Log.e(TAG, "exception", e);
+        }
+
+        BaseVolleyPOSTRequest<Result> signInRequest = new BaseVolleyPOSTRequest<Result>(SIGN_IN_URL, requestBody.toString(), Result.class, null, listener, errorListener);
 
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(signInRequest);
     }
@@ -70,6 +93,37 @@ public class DefaultServerApi implements ServerApi {
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(getEquipmentPosition);
     }
 
+    @Override
+    public void sendGcmId(Context context, String email, String gcmId, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
+
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("userId", email);
+            requestBody.put("gcmId", gcmId);
+        }catch (Exception e) {
+            Log.e(TAG, "exception", e);
+        }
+
+        BaseVolleyPOSTRequest<Result> request = new BaseVolleyPOSTRequest<Result>(SAVE_GCM_URL, requestBody.toString(), Result.class, null, listener, errorListener);
+
+        VolleyHTTPHandler.getInstance(context).addToRequestQueue(request);
+    }
+
+    @Override
+    public void notifyUser(Context context, String email, String message, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
+
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("userId", email);
+            requestBody.put("messageToSend", message);
+        }catch (Exception e) {
+            Log.e(TAG, "exception", e);
+        }
+
+        BaseVolleyPOSTRequest<Result> request = new BaseVolleyPOSTRequest<Result>(NOTIFY_USER_URL, requestBody.toString(), Result.class, null, listener, errorListener);
+
+        VolleyHTTPHandler.getInstance(context).addToRequestQueue(request);
+    }
 }
 
 
