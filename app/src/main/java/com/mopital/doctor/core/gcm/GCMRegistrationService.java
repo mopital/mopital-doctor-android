@@ -11,6 +11,9 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.mopital.doctor.core.DefaultServerApi;
+import com.mopital.doctor.core.PreferenceService;
+import com.mopital.doctor.core.ServerApiProvider;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -189,6 +192,7 @@ public class GCMRegistrationService {
      */
     private void sendRegistrationIdToBackend() {
         // Your implementation here.
+        ServerApiProvider.serverApi().sendGcmId(context, PreferenceService.getEmail(context), regid, null, null);
     }
 
     /**
