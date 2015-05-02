@@ -15,6 +15,7 @@ import com.mopital.doctor.R;
 import com.mopital.doctor.core.DefaultServerApi;
 import com.mopital.doctor.core.ServerApiProvider;
 import com.mopital.doctor.core.volley.responses.Result;
+import com.mopital.doctor.core.volley.responses.VolleyFailWrapper;
 
 public class SignUpActivity extends ActionBarActivity {
 
@@ -74,7 +75,7 @@ public class SignUpActivity extends ActionBarActivity {
 
     private void signUp() {
         api.signUp(SignUpActivity.this, nameEditText
-                        .getText().toString(), emailEditText.getText().toString(),
+                        .getText().toString(), "doctor", emailEditText.getText().toString(),
             password1EditText.getText().toString(),  new Response.Listener<Result>() {
                 @Override
                 public void onResponse(Result response) {
@@ -84,7 +85,11 @@ public class SignUpActivity extends ActionBarActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    String errorMessage = "Couldn't sign up, try again";
+                    if(error instanceof VolleyFailWrapper) {
+                        errorMessage = ((VolleyFailWrapper)error).getResult().getMsg();
+                    }
+                    Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 }
             }
         );

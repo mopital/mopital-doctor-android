@@ -8,12 +8,15 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mopital.doctor.core.DefaultServerApi;
 import com.mopital.doctor.core.PreferenceService;
 import com.mopital.doctor.core.ServerApiProvider;
+import com.mopital.doctor.core.volley.responses.Result;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -193,7 +196,17 @@ public class GCMRegistrationService {
     private void sendRegistrationIdToBackend() {
         // Your implementation here.
         //ServerApiProvider.serverApi().sendGcmId(context, PreferenceService.getEmail(context), regid, null, null);
-        ServerApiProvider.serverApi().sendGcmId(context, "alpercempolat@hotmail.com", regid,null,null);
+        ServerApiProvider.serverApi().sendGcmId(context, PreferenceService.getEmail(context), regid,new Response.Listener<Result>() {
+            @Override
+            public void onResponse(Result response) {
+                Log.i(TAG, "gcm id is send successfully");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "error while sending gcm id " + error.getMessage());
+            }
+        });
     }
 
     /**

@@ -11,8 +11,12 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mopital.doctor.R;
 import com.mopital.doctor.activities.MainActivity;
+
+import org.json.JSONObject;
 
 /**
  * Created by ahmetkucuk on 01/05/15.
@@ -83,13 +87,20 @@ public class GcmIntentService extends IntentService {
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), 0);
 
+        String message = "";
+        int index = msg.indexOf("message=");
+        for(int i = index+8; i < msg.length(); i++) {
+            if(msg.charAt(i) == ',') break;
+            message += msg.charAt(i);
+        }
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle("GCM Notification")
+                        .setSmallIcon(R.drawable.logo_small)
+                        .setContentTitle("Mopital Doctor Alert")
                         .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(msg))
-                        .setContentText(msg);
+                                .bigText(message))
+                        .setContentText(message);
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

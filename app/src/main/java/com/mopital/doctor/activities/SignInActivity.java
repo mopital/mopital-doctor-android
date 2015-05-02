@@ -1,8 +1,10 @@
 package com.mopital.doctor.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +18,11 @@ import com.mopital.doctor.core.PreferenceService;
 import com.mopital.doctor.core.ServerApi;
 import com.mopital.doctor.core.ServerApiProvider;
 import com.mopital.doctor.core.volley.responses.Result;
+import com.mopital.doctor.models.MopitalUser;
 
 public class SignInActivity extends ActionBarActivity {
+
+    private static final String TAG = "SignInActivity";
 
 	private EditText emailEditText;
 	private EditText passwordEditText;
@@ -38,9 +43,8 @@ public class SignInActivity extends ActionBarActivity {
 		api = ServerApiProvider.serverApi();
 
 		if (checkIfCredentialsExist()) {
-            signIn();
+            signIn(PreferenceService.getEmail(SignInActivity.this.getApplicationContext()), PreferenceService.getPassword(SignInActivity.this.getApplicationContext()));
 		}
-
 	}
 
 	private boolean checkIfCredentialsExist() {
@@ -58,21 +62,28 @@ public class SignInActivity extends ActionBarActivity {
 					getResources().getString(R.string.password_empty),
 					Toast.LENGTH_SHORT).show();
 		} else {
-            signIn();
+            signIn(emailEditText.getText().toString(),passwordEditText.getText().toString());
 		}
 	}
 
-    private void signIn() {
-        api.signIn(SignInActivity.this, emailEditText.getText().toString(),
-                passwordEditText.getText().toString(), new Response.Listener<Result>() {
+    private void signIn(final String email, final String password) {
+        api.signIn(SignInActivity.this, email,
+                password, new Response.Listener<MopitalUser>() {
                     @Override
-                    public void onResponse(Result response) {
-
+                    public void onResponse(MopitalUser response) {
+                        Log.d(TAG, response.toString());
+                        PreferenceService.saveEmail(SignInActivity.this.getApplicationContext(), email);
+                        PreferenceService.savePassword(SignInActivity.this.getApplicationContext(), password);
+                        Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                        finish();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(SignInActivity.this, "Login failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        PreferenceService.removeCredentials(SignInActivity.this.getApplicationContext());
                     }
                 }
         );

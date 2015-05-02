@@ -1,5 +1,7 @@
 package com.mopital.doctor.core.volley.requests;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -24,6 +26,7 @@ import java.util.Map;
 public class BaseVolleyPOSTRequest<T> extends JsonRequest<T> {
 
 
+    private static final String TAG = "BaseVolleyPOST";
 
     private final Gson gson = new Gson();
     private final Map<String, String> headers;
@@ -49,15 +52,16 @@ public class BaseVolleyPOSTRequest<T> extends JsonRequest<T> {
             JsonParser parser = new JsonParser();
             JsonObject jsonObject = parser.parse(responseStr).getAsJsonObject();
 
-            T result = gson.fromJson(jsonObject.get("result"), clazz);
+            Result result = gson.fromJson(jsonObject.get("result"), Result.class);
+            T data = gson.fromJson(jsonObject.get("data"), clazz);
 
-            if(result instanceof  Result && ResultCode.fromInt(((Result)result).getStatus_code()) == ResultCode.FAIL) {
+            if(result instanceof  Result && ResultCode.fromInt(((Result)result).getStatus_code()) != ResultCode.SUCCESS) {
 
-                return Response.error(new VolleyFailWrapper(((Result)result)));
+                return Response.error(new VolleyFailWrapper(result));
             }
 
             return Response.success(
-                    result,
+                    data,
                     HttpHeaderParser.parseCacheHeaders(response));
         } catch (JsonSyntaxException e) {
             return Response.error(new ParseError(e));

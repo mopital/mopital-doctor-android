@@ -6,7 +6,11 @@ package com.mopital.doctor.core;
 public enum ResultCode {
 
     FAIL,
-    SUCCESS;
+    SUCCESS,
+    INTERNAL,
+    DATABASE,
+    FATAL,
+    UNKNOWN;
 
     public static ResultCode fromInt(int i ) {
 

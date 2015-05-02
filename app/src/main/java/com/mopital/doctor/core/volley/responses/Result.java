@@ -20,4 +20,13 @@ public class Result {
     public String getMsg() {
         return msg;
     }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "status='" + status + '\'' +
+                ", status_code=" + status_code +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

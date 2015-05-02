@@ -61,7 +61,7 @@ public class BaseVolleyGETRequest<T> extends Request<T> {
             Result result = gson.fromJson(jsonObject.get("result"), Result.class);
             T data = gson.fromJson(jsonObject.get("data"), clazz);
 
-            if(ResultCode.fromInt(result.getStatus_code()) == ResultCode.FAIL) {
+            if(ResultCode.fromInt(result.getStatus_code()) != ResultCode.SUCCESS) {
 
                 return Response.error(new VolleyFailWrapper(result));
             }

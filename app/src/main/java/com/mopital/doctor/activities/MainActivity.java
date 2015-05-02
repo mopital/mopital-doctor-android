@@ -22,6 +22,7 @@ import com.mopital.doctor.core.ServerApiProvider;
 import com.mopital.doctor.core.gcm.GCMRegistrationService;
 import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.fragments.NavigationDrawerFragment;
+import com.mopital.doctor.models.MopitalUser;
 import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.utils.Constants;
 
@@ -68,30 +69,34 @@ public class MainActivity extends ActionBarActivity {
         delay += 150;
         menu1.setClosedOnTouchOutside(true);
 
-        /*
+
         api = ServerApiProvider.serverApi();
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Log.d(TAG, error.getMessage());
+                Log.d(TAG, error.getMessage() + "");
             }
         };
 
-        Response.Listener<Result> listener = new Response.Listener<Result>() {
+        Response.Listener<MopitalUser> listener = new Response.Listener<MopitalUser>() {
             @Override
-            public void onResponse(Result result) {
-                //Log.d(TAG, result.getMsg());
+            public void onResponse(MopitalUser result) {
+                Log.d(TAG, result.toString());
             }
         };
 
-        api.signUp(this, "alpercempolat@hotmail.com", "alpercem", "alpercempolat@hotmail.com", listener, errorListener);
-        api.signIn(this, "alpercempolat@hotmail.com", "alpercem", listener, errorListener);
+//        api.signUp(this, "alpercem", "doctor", "alpercempolat@hotmail.com", "Alper@2014", listener, errorListener);
+        //api.signIn(this, "alpercempolat@hotmail.com", "Alper@2014", listener, errorListener);
         //Test login
-        GCMRegistrationService service = new GCMRegistrationService(this);
+        GCMRegistrationService service = new GCMRegistrationService(this.getApplicationContext());
         service.register();
 
-        api.notifyUser(this, "alpercempolat@hotmail.com", "Message is sent", listener, errorListener);
-        */
+        api.notifyUser(this, "alpercempolat@hotmail.com", "Benim mesajim", new Response.Listener<Result>() {
+            @Override
+            public void onResponse(Result response) {
+                Log.d(TAG, "send notify successful");
+            }
+        }, errorListener);
     }
 
     private void callLoginActivity() {

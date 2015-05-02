@@ -8,6 +8,7 @@ import com.mopital.doctor.core.volley.requests.BaseVolleyGETRequest;
 import com.mopital.doctor.core.volley.requests.BaseVolleyPOSTRequest;
 import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.models.EquipmentPosition;
+import com.mopital.doctor.models.MopitalUser;
 import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
@@ -42,11 +43,12 @@ public class DefaultServerApi implements ServerApi {
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(getUserRequest);
     }
 
-    public void signUp(Context context, String userName, String password, String email, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
+    public void signUp(Context context, String name, String department, String email, String password, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
 
         JSONObject requestBody = new JSONObject();
         try {
-            requestBody.put("userName", userName);
+            requestBody.put("name", name);
+            requestBody.put("department", department);
             requestBody.put("email", email);
             requestBody.put("password", password);
         }catch (Exception e) {
@@ -57,7 +59,7 @@ public class DefaultServerApi implements ServerApi {
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(signUpRequest);
     }
 
-    public void signIn(Context context, String email, String password, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
+    public void signIn(Context context, String email, String password, Response.Listener<MopitalUser> listener, Response.ErrorListener errorListener) {
 
         JSONObject requestBody = new JSONObject();
         try {
@@ -67,7 +69,7 @@ public class DefaultServerApi implements ServerApi {
             Log.e(TAG, "exception", e);
         }
 
-        BaseVolleyPOSTRequest<Result> signInRequest = new BaseVolleyPOSTRequest<Result>(SIGN_IN_URL, requestBody.toString(), Result.class, null, listener, errorListener);
+        BaseVolleyPOSTRequest<MopitalUser> signInRequest = new BaseVolleyPOSTRequest<MopitalUser>(SIGN_IN_URL, requestBody.toString(), MopitalUser.class, null, listener, errorListener);
 
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(signInRequest);
     }
