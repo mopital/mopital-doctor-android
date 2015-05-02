@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,8 +70,23 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
         List<DrawerItem> data = new ArrayList<>();
         String[] titles = {"Patients", "Equipments", "Statistics"};
         for (int i = 0; i < titles.length; i++) {
-            DrawerItem current = new DrawerItem(titles[i]);
-            data.add(current);
+            DrawerItem current;
+            switch(i) {
+                case 0:
+                    current = new DrawerItem(titles[i], R.drawable.ic_patients);
+                    data.add(current);
+                    break;
+                case 1:
+                    current = new DrawerItem(titles[i], R.drawable.ic_equipments);
+                    data.add(current);
+                    break;
+                case 2:
+                    current = new DrawerItem(titles[i], R.drawable.ic_statistics);
+                    data.add(current);
+                    break;
+                default:
+                    break;
+            }
         }
         return data;
     }
