@@ -6,6 +6,7 @@ import com.android.volley.Response;
 import com.mopital.doctor.core.volley.requests.BaseVolleyGETRequest;
 import com.mopital.doctor.core.volley.requests.BaseVolleyPOSTRequest;
 import com.mopital.doctor.core.volley.responses.Result;
+import com.mopital.doctor.models.EquipmentPosition;
 import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
@@ -25,6 +26,7 @@ public class DefaultServerApi implements ServerApi {
     private static final String SIGN_UP_URL = BASE_API_URL + "user/register";
     private static final String GET_ALL_PATIENTS_URL = BASE_API_URL + "patient/all";
     private static final String GET_ALL_EQUIPMENTS_URL = BASE_API_URL + "equipment/all";
+    private static final String GET_LAST_POSITION_OF_EQUIPMENT_URL = BASE_API_URL + "equipment/last/position/";
 
     public void getUser(Context context, String userId, Response.Listener<Patient> patientListener, Response.ErrorListener errorListener) {
 
@@ -61,6 +63,12 @@ public class DefaultServerApi implements ServerApi {
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(getAllEquipmentsRequest);
     }
 
+    public void getLastLocationOfEquipment(Context context, Response.Listener<EquipmentPosition> listener, Response.ErrorListener errorListener) {
+
+        BaseVolleyGETRequest<EquipmentPosition> getEquipmentPosition = new BaseVolleyGETRequest<EquipmentPosition>(GET_LAST_POSITION_OF_EQUIPMENT_URL, EquipmentPosition.class, null, listener, errorListener);
+
+        VolleyHTTPHandler.getInstance(context).addToRequestQueue(getEquipmentPosition);
+    }
 
 }
 

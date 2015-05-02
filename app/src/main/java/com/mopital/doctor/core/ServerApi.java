@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.volley.Response;
 import com.mopital.doctor.core.volley.responses.Result;
+import com.mopital.doctor.models.EquipmentPosition;
 import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
@@ -27,6 +28,5 @@ public interface ServerApi {
 
     public void getAllEquipments(Context context, Response.Listener<EquipmentListWrapper> equipmentListener, Response.ErrorListener errorListener);
 
-
-
+    public void getLastLocationOfEquipment(Context context, Response.Listener<EquipmentPosition> listener, Response.ErrorListener errorListener);
 }
