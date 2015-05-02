@@ -3,6 +3,7 @@ package com.mopital.doctor.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.getpoi.beacon.PoiService;
+import com.github.clans.fab.FloatingActionMenu;
 import com.mopital.doctor.R;
 import com.mopital.doctor.fragments.NavigationDrawerFragment;
 import com.mopital.doctor.utils.Constants;
@@ -28,6 +30,8 @@ public class MainActivity extends ActionBarActivity {
 
     final String ID = "userUniqueIdTest1";
 
+    private Handler mUiHandler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,21 @@ public class MainActivity extends ActionBarActivity {
 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+
+        final FloatingActionMenu menu1 = (FloatingActionMenu) findViewById(R.id.fab_menu);
+        menu1.hideMenuButton(false);
+
+        int delay = 400;
+        mUiHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                menu1.showMenuButton(true);
+            }
+        }, delay);
+        delay += 150;
+
+
+        menu1.setClosedOnTouchOutside(true);
     }
 
     private void callLoginActivity() {
