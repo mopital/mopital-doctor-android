@@ -27,6 +27,7 @@ android {
 }
 
 dependencies {
+    compile 'com.github.clans:fab:1.4.0@aar'
     compile 'com.squareup.retrofit:retrofit:1.6.1'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.mcxiaoke.volley:library:1.0.+'

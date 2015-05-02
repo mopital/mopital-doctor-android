@@ -41,6 +41,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
     public void onBindViewHolder(DrawerViewHolder holder, int position) {
         DrawerItem current = data.get(position);
         holder.title.setText(current.getTitle());
+        holder.icon.setImageResource(current.getImagePath());
     }
 
     public void setClickListener(ClickListener clickListener){

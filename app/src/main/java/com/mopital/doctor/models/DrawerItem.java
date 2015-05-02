@@ -5,9 +5,19 @@ package com.mopital.doctor.models;
  */
 public class DrawerItem {
     private String title;
+    private int imagePath;
 
-    public DrawerItem(String title) {
+    public int getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(int imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public DrawerItem(String title, int imagePath) {
         this.title = title;
+        this.imagePath = imagePath;
     }
 
     public String getTitle() {
