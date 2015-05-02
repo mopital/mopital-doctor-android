@@ -19,6 +19,7 @@ import com.mopital.doctor.core.ServerApi;
 import com.mopital.doctor.core.ServerApiProvider;
 import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.models.MopitalUser;
+import com.mopital.doctor.utils.GUIHelperFunctions;
 
 public class SignInActivity extends ActionBarActivity {
 
@@ -43,6 +44,7 @@ public class SignInActivity extends ActionBarActivity {
 		api = ServerApiProvider.serverApi();
 
 		if (checkIfCredentialsExist()) {
+            GUIHelperFunctions.showProgressDialog(SignInActivity.this, "Logging In");
             signIn(PreferenceService.getEmail(SignInActivity.this.getApplicationContext()), PreferenceService.getPassword(SignInActivity.this.getApplicationContext()));
 		}
 	}
@@ -62,7 +64,7 @@ public class SignInActivity extends ActionBarActivity {
 					getResources().getString(R.string.password_empty),
 					Toast.LENGTH_SHORT).show();
 		} else {
-            signIn(emailEditText.getText().toString(),passwordEditText.getText().toString());
+            signIn(emailEditText.getText().toString(), passwordEditText.getText().toString());
 		}
 	}
 
@@ -71,6 +73,7 @@ public class SignInActivity extends ActionBarActivity {
                 password, new Response.Listener<MopitalUser>() {
                     @Override
                     public void onResponse(MopitalUser response) {
+                        GUIHelperFunctions.hideProgressDialog();
                         Log.d(TAG, response.toString());
                         PreferenceService.saveEmail(SignInActivity.this.getApplicationContext(), email);
                         PreferenceService.savePassword(SignInActivity.this.getApplicationContext(), password);
@@ -82,6 +85,7 @@ public class SignInActivity extends ActionBarActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        GUIHelperFunctions.hideProgressDialog();
                         Toast.makeText(SignInActivity.this, "Login failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         PreferenceService.removeCredentials(SignInActivity.this.getApplicationContext());
                     }
