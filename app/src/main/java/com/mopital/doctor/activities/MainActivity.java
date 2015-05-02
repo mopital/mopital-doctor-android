@@ -7,13 +7,22 @@ import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.getpoi.beacon.PoiService;
 import com.github.clans.fab.FloatingActionMenu;
 import com.mopital.doctor.R;
+import com.mopital.doctor.core.ServerApi;
+import com.mopital.doctor.core.ServerApiProvider;
+import com.mopital.doctor.core.gcm.GCMRegistrationService;
+import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.fragments.NavigationDrawerFragment;
+import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.utils.Constants;
 
 import butterknife.ButterKnife;
@@ -31,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
     final String ID = "userUniqueIdTest1";
 
     private Handler mUiHandler = new Handler();
+    private ServerApi api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +66,32 @@ public class MainActivity extends ActionBarActivity {
             }
         }, delay);
         delay += 150;
-
-
         menu1.setClosedOnTouchOutside(true);
+
+        /*
+        api = ServerApiProvider.serverApi();
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.d(TAG, error.getMessage());
+            }
+        };
+
+        Response.Listener<Result> listener = new Response.Listener<Result>() {
+            @Override
+            public void onResponse(Result result) {
+                //Log.d(TAG, result.getMsg());
+            }
+        };
+
+        api.signUp(this, "alpercempolat@hotmail.com", "alpercem", "alpercempolat@hotmail.com", listener, errorListener);
+        api.signIn(this, "alpercempolat@hotmail.com", "alpercem", listener, errorListener);
+        //Test login
+        GCMRegistrationService service = new GCMRegistrationService(this);
+        service.register();
+
+        api.notifyUser(this, "alpercempolat@hotmail.com", "Message is sent", listener, errorListener);
+        */
     }
 
     private void callLoginActivity() {

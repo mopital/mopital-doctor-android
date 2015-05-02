@@ -192,7 +192,8 @@ public class GCMRegistrationService {
      */
     private void sendRegistrationIdToBackend() {
         // Your implementation here.
-        ServerApiProvider.serverApi().sendGcmId(context, PreferenceService.getEmail(context), regid, null, null);
+        //ServerApiProvider.serverApi().sendGcmId(context, PreferenceService.getEmail(context), regid, null, null);
+        ServerApiProvider.serverApi().sendGcmId(context, "alpercempolat@hotmail.com", regid,null,null);
     }
 
     /**
