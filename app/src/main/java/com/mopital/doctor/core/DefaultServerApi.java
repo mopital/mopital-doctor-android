@@ -10,7 +10,9 @@ import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -37,14 +39,23 @@ public class DefaultServerApi implements ServerApi {
 
     public void signUp(Context context, String userName, String password, String email, Response.Listener<Result> listener, Response.ErrorListener errorListener){
 
-        BaseVolleyPOSTRequest<Result> signUpRequest = new BaseVolleyPOSTRequest<Result>(SIGN_UP_URL, Result.class, null, listener, errorListener);
+        Map<String, Object> params = new HashMap<>();
+        params.put("userName", userName);
+        params.put("email", email);
+        params.put("password", password);
+
+        BaseVolleyPOSTRequest<Result> signUpRequest = new BaseVolleyPOSTRequest<Result>(SIGN_UP_URL, params, Result.class, null, listener, errorListener);
 
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(signUpRequest);
     }
 
     public void signIn(Context context, String email, String password, Response.Listener<Result> listener, Response.ErrorListener errorListener) {
 
-        BaseVolleyPOSTRequest<Result> signInRequest = new BaseVolleyPOSTRequest<Result>(SIGN_IN_URL, Result.class, null, listener, errorListener);
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+        params.put("password", password);
+
+        BaseVolleyPOSTRequest<Result> signInRequest = new BaseVolleyPOSTRequest<Result>(SIGN_IN_URL, params, Result.class, null, listener, errorListener);
 
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(signInRequest);
     }
