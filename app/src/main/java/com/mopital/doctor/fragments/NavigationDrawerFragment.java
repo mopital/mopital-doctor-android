@@ -1,6 +1,7 @@
 package com.mopital.doctor.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mopital.doctor.R;
+import com.mopital.doctor.activities.EquipmentActivity;
 import com.mopital.doctor.adapters.DrawerAdapter;
 import com.mopital.doctor.models.DrawerItem;
 
@@ -136,10 +138,12 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
     @Override
     public void itemClicked(View view, int position) {
         switch (position) {
-            case 0: {
+            case 0:
                 //startActivity(new Intent(getActivity(), ReportDetailActivity.class));
                 break;
-            }
+            case 1:
+                startActivity(new Intent(getActivity(), EquipmentActivity.class));
+                break;
             default:
                 break;
         }

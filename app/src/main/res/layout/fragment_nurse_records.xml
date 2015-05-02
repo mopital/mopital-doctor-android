@@ -169,14 +169,12 @@
             android:id="@+id/blood_sugar_monitoring_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Blood Sugar Monitoring Records"
-            android:onClick="buttonClicked"></Button>
+            android:text="Blood Sugar Monitoring Records"></Button>
 
         <Button
             android:id="@+id/periodic_monitoring_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Periodic Monitoring Records"
-            android:onClick="buttonClicked"></Button>
+            android:text="Periodic Monitoring Records"></Button>
     </TableLayout>
 </LinearLayout>

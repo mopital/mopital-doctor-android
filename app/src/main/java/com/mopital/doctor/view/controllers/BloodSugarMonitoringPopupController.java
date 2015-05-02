@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mopital.doctor.R;
+import com.mopital.doctor.adapters.BloodSugarMonitoringAdapter;
+import com.mopital.doctor.models.BloodSugarMonitoring;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +26,11 @@ public class BloodSugarMonitoringPopupController {
     private Dialog dialog = null;
     private View dialogView = null;
     private WarningPopupViewHolder warningPopupViewHolder;
+    private List<BloodSugarMonitoring> data;
 
-    private List data = new ArrayList();
-
-    public BloodSugarMonitoringPopupController(Context context) {
+    public BloodSugarMonitoringPopupController(Context context, List<BloodSugarMonitoring> data) {
         this.context = context;
+        this.data = data;
 
         dialog = new Dialog(context);
         dialogView = LayoutInflater.from(context).inflate(R.layout.popup_patient_record_detail, null);
@@ -50,7 +52,8 @@ public class BloodSugarMonitoringPopupController {
             warningPopupViewHolder = new WarningPopupViewHolder(dialogView);
         }
 
-        warningPopupViewHolder.getWarningListView().setAdapter(null);
+        BloodSugarMonitoringAdapter adapter = new BloodSugarMonitoringAdapter(context, R.layout.blood_sugar_monitoring_item, data);
+        warningPopupViewHolder.getWarningListView().setAdapter(adapter);
         warningPopupViewHolder.getCloseWarningsButton().setOnClickListener(onCloseWarningClickListener);
 
         dialog.show();
