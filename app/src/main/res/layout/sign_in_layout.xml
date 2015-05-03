@@ -73,15 +73,26 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button_background"
-                android:onClick="signInClicked"
-                android:text="@string/sign_in"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <ProgressBar
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/progress_bar"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_background"
+                    android:onClick="signInClicked"
+                    android:text="@string/sign_in"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </TableRow>
 
     </TableLayout>

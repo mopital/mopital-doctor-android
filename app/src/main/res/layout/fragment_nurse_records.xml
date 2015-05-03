@@ -15,6 +15,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"
                 android:text="ID: " />
 
@@ -31,6 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"
                 android:text="Recorded At: " />
 
@@ -48,6 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"
                 android:text="Diagnosis: " />
 
@@ -56,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                style="@style/PatientTableValue"
                 android:text="Diagnosis" />
         </TableRow>
 
@@ -64,6 +68,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"
                 android:text="Allergy: " />
 
@@ -72,6 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                style="@style/PatientTableValue"
                 android:text="None" />
         </TableRow>
 
@@ -80,6 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"
                 android:text="Blood Type: " />
 
@@ -88,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                style="@style/PatientTableValue"
                 android:text="A+" />
         </TableRow>
 
@@ -96,6 +104,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"
                 android:text="Nurse: " />
 
@@ -104,6 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                style="@style/PatientTableValue"
                 android:text="Selma" />
         </TableRow>
 
@@ -114,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:text="Patient Pain "
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -122,6 +133,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"
                 android:text="Region: " />
 
@@ -130,6 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                style="@style/PatientTableValue"
                 android:text="Head" />
         </TableRow>
 
@@ -138,6 +151,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"
                 android:text="Type of Pain: " />
 
@@ -146,6 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                style="@style/PatientTableValue"
                 android:text="Constant" />
         </TableRow>
 
@@ -155,6 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                style="@style/PatientTableKey"
                 android:text="Duration: " />
 
             <TextView
@@ -162,8 +178,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                style="@style/PatientTableValue"
                 android:text="A year" />
         </TableRow>
+    </TableLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
 
         <Button
             android:id="@+id/blood_sugar_monitoring_Button"
@@ -176,5 +200,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Periodic Monitoring Records"></Button>
-    </TableLayout>
+        </LinearLayout>
 </LinearLayout>

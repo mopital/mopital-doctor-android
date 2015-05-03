@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -19,27 +20,31 @@ import com.mopital.doctor.core.ServerApi;
 import com.mopital.doctor.core.ServerApiProvider;
 import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.models.MopitalUser;
+import com.mopital.doctor.utils.Constants;
 import com.mopital.doctor.utils.GUIHelperFunctions;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class SignInActivity extends ActionBarActivity {
 
     private static final String TAG = "SignInActivity";
 
-	private EditText emailEditText;
-	private EditText passwordEditText;
+	@InjectView(R.id.email_sign_in) EditText emailEditText;
+    @InjectView(R.id.password_sign_in) EditText passwordEditText;
+    @InjectView(R.id.progress_bar) ProgressBar progressBar;
 	private ServerApi api;
+    private static final int START_SIGN_UP_ACTIVITY = 123;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sign_in_layout);
+        ButterKnife.inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-		emailEditText = (EditText) findViewById(R.id.email_sign_in);
-		passwordEditText = (EditText) findViewById(R.id.password_sign_in);
 
 		api = ServerApiProvider.serverApi();
 
@@ -69,11 +74,13 @@ public class SignInActivity extends ActionBarActivity {
 	}
 
     private void signIn(final String email, final String password) {
+        progressBar.setVisibility(View.VISIBLE);
         api.signIn(SignInActivity.this, email,
                 password, new Response.Listener<MopitalUser>() {
                     @Override
                     public void onResponse(MopitalUser response) {
                         GUIHelperFunctions.hideProgressDialog();
+                        progressBar.setVisibility(View.GONE);
                         Log.d(TAG, response.toString());
                         PreferenceService.saveEmail(SignInActivity.this.getApplicationContext(), email);
                         PreferenceService.savePassword(SignInActivity.this.getApplicationContext(), password);
@@ -86,6 +93,7 @@ public class SignInActivity extends ActionBarActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressBar.setVisibility(View.GONE);
                         GUIHelperFunctions.hideProgressDialog();
                         Toast.makeText(SignInActivity.this, "Login failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         PreferenceService.removeCredentials(SignInActivity.this.getApplicationContext());
@@ -95,9 +103,21 @@ public class SignInActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if( requestCode == START_SIGN_UP_ACTIVITY) {
+            if(resultCode == RESULT_OK) {
+                if(data != null && data.hasExtra(Constants.EMAIL_ADRESS)) {
+                    emailEditText.setText(data.getExtras().getString(Constants.EMAIL_ADRESS));
+                }
+            }
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.sign_in, menu);
         return true;
     }
 
@@ -107,7 +127,9 @@ public class SignInActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sign_up) {
+            Intent i = new Intent(this, SignUpActivity.class);
+            startActivityForResult(i, START_SIGN_UP_ACTIVITY);
             return true;
         }
         return super.onOptionsItemSelected(item);

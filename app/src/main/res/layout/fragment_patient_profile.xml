@@ -7,14 +7,16 @@
 
     <TableLayout
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp">
+        >
 
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:text="Name: "
                 android:layout_marginBottom="5dp"/>
 
@@ -22,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/patient_name"
+                style="@style/PatientTableValue"
                 android:text="Name"
                 android:layout_marginBottom="5dp"/>
         </TableRow>
@@ -31,12 +34,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Blood Type: "
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/patient_blood_type"
+                style="@style/PatientTableValue"
                 android:text="A+"
                 android:layout_marginBottom="5dp"/>
         </TableRow>
@@ -46,12 +51,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="File No: "
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/patient_file_no"
+                style="@style/PatientTableValue"
                 android:text="53253252"
                 android:layout_marginBottom="5dp"/>
         </TableRow>
@@ -62,12 +69,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Admission Date: "
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/patient_admission_date"
+                style="@style/PatientTableValue"
                 android:text="Today"
                 android:layout_marginBottom="5dp"/>
         </TableRow>
@@ -77,11 +86,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Age: "
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/patient_age"
+                style="@style/PatientTableValue"
                 android:text="31"
                 android:layout_marginBottom="5dp"/>
         </TableRow>
@@ -91,12 +102,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Weight: "
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/patient_weight"
+                style="@style/PatientTableValue"
                 android:text="65"
                 android:layout_marginBottom="5dp"/>
         </TableRow>
@@ -106,12 +119,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Height: "
+                style="@style/PatientTableKey"
                 android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/patient_height"
+                style="@style/PatientTableValue"
                 android:text="170"
                 android:layout_marginBottom="5dp"/>
         </TableRow>

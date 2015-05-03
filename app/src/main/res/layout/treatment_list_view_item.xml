@@ -13,6 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time: "
+            style="@style/PatientTableKey"
             android:layout_marginBottom="5dp"/>
 
         <TextView
@@ -20,6 +21,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/treatment_date"
             android:text="Time"
+            style="@style/PatientTableValue"
              android:layout_marginBottom="5dp"/>
         </TableRow>
 
@@ -28,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date: "
+            style="@style/PatientTableKey"
             android:layout_marginBottom="5dp"/>
 
             <TextView
@@ -35,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/treatment_time"
                 android:text="Date"
+                style="@style/PatientTableValue"
                 android:layout_marginBottom="5dp"/>
         </TableRow>
 
@@ -43,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tension: "
+            style="@style/PatientTableKey"
             android:layout_marginBottom="5dp"/>
 
             <TextView
@@ -50,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/treatment_tension"
                 android:text="Tension"
+                style="@style/PatientTableValue"
                 android:layout_marginBottom="5dp"/>
         </TableRow>
 
@@ -58,6 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:text="Temperature: "
                 android:layout_marginBottom="5dp"/>
 
@@ -66,6 +73,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/treatment_temperature"
             android:text="Temperature"
+            style="@style/PatientTableValue"
             android:layout_marginBottom="5dp"/>
         </TableRow>
 
@@ -73,6 +81,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:text="Pulse: "
                 android:layout_marginBottom="5dp"/>
         <TextView
@@ -80,6 +89,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/treatment_pulse"
             android:text="Pulse"
+            style="@style/PatientTableValue"
             android:layout_marginBottom="5dp"/>
         </TableRow>
 
@@ -87,6 +97,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:text="Respiration: "
                 android:layout_marginBottom="5dp"/>
 
@@ -95,6 +106,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/treatment_respiration"
             android:text="Respiration"
+            style="@style/PatientTableValue"
             android:layout_marginBottom="5dp"/>
         </TableRow>
 
@@ -102,6 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/PatientTableKey"
                 android:text="Pain: "
                 android:layout_marginBottom="5dp"/>
         <TextView
@@ -109,6 +122,7 @@
             android:layout_height="wrap_content"
             android:text="Pain"
             android:id="@+id/treatment_pain"
+            style="@style/PatientTableValue"
             android:layout_marginBottom="5dp"/>
         </TableRow>
 
@@ -116,11 +130,13 @@
             <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/PatientTableKey"
             android:text="Treatment: "
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/PatientTableValue"
             android:id="@+id/treatment_treatment"
             android:text="Treatment is a good treatment. I like the way i am treated"
             />

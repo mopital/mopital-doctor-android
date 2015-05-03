@@ -21,5 +21,12 @@
         <item name="android:textColorPrimary">#000</item>
         <item name="android:textColorSecondary">#000</item>
     </style>
-
+    <style name="PatientTableKey">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="PatientTableValue">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

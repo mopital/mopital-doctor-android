@@ -15,4 +15,6 @@ public class Constants {
 
     public static final int SIGN_IN_REQUEST_CODE = 1111;
     public static final int LOG_OUT_REQUEST_CODE = 1112;
+
+    public static final String EMAIL_ADRESS = "email_adress";
 }

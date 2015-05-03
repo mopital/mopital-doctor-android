@@ -2,10 +2,13 @@ package com.mopital.doctor.view.controllers;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,7 +38,10 @@ public class BloodSugarMonitoringPopupController {
         dialog = new Dialog(context);
         dialogView = LayoutInflater.from(context).inflate(R.layout.popup_patient_record_detail, null);
         ((TextView)dialogView.findViewById(R.id.popup_header_textview)).setText("Blood Sugar Monitoring");
-        dialog.requestWindowFeature(Window.FEATURE_PROGRESS);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+//        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+//        dialog.getWindow().setAttributes(params);
         dialog.setContentView(dialogView);
     }
 
@@ -58,6 +64,9 @@ public class BloodSugarMonitoringPopupController {
 
         dialog.show();
 
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        int screenWidth = (int) (metrics.widthPixels * 0.9);
+        dialog.getWindow().setLayout(screenWidth, WindowManager.LayoutParams.WRAP_CONTENT);
 
     }
 

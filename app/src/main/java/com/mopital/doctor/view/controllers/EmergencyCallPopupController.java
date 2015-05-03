@@ -2,10 +2,12 @@ package com.mopital.doctor.view.controllers;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,7 +35,7 @@ public class EmergencyCallPopupController {
 
         dialog = new Dialog(context);
         dialogView = LayoutInflater.from(context).inflate(R.layout.emergency_call, null);
-        dialog.requestWindowFeature(Window.FEATURE_PROGRESS);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
     }
 
@@ -44,6 +46,10 @@ public class EmergencyCallPopupController {
 
         warningPopupViewHolder.getSendCallButton().setOnClickListener(onSendCallClickListener);
         dialog.show();
+
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        int screenWidth = (int) (metrics.widthPixels * 0.9);
+        dialog.getWindow().setLayout(screenWidth, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
     private View.OnClickListener onSendCallClickListener = new View.OnClickListener() {

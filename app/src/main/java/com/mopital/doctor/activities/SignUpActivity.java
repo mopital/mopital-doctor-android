@@ -1,5 +1,6 @@
 package com.mopital.doctor.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -16,6 +18,10 @@ import com.mopital.doctor.core.DefaultServerApi;
 import com.mopital.doctor.core.ServerApiProvider;
 import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.core.volley.responses.VolleyFailWrapper;
+import com.mopital.doctor.utils.Constants;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class SignUpActivity extends ActionBarActivity {
 
@@ -23,12 +29,15 @@ public class SignUpActivity extends ActionBarActivity {
 	private EditText emailEditText;
 	private EditText password1EditText;
 	private EditText password2EditText;
+    @InjectView(R.id.progress_bar)
+    ProgressBar progressBar;
 	private DefaultServerApi api;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sign_up_layout);
+        ButterKnife.inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,23 +75,27 @@ public class SignUpActivity extends ActionBarActivity {
 					getResources().getString(R.string.password_not_match),
 					Toast.LENGTH_SHORT).show();
 		} else {
-            signUp();
+            signUp(nameEditText.getText().toString(), emailEditText.getText().toString(), password1EditText.getText().toString());
 		}
 
 	}
 
-    private void signUp() {
-        api.signUp(SignUpActivity.this, nameEditText
-                        .getText().toString(), "doctor", emailEditText.getText().toString(),
-            password1EditText.getText().toString(),  new Response.Listener<Result>() {
+    private void signUp(final String name, final String email, final String password) {
+        progressBar.setVisibility(View.VISIBLE);
+        api.signUp(SignUpActivity.this, name, "doctor", email,
+            password,  new Response.Listener<Result>() {
                 @Override
                 public void onResponse(Result response) {
-                    setResult(RESULT_OK);
+                    progressBar.setVisibility(View.GONE);
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(Constants.EMAIL_ADRESS, email);
+                    setResult(RESULT_OK, returnIntent);
                     finish();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    progressBar.setVisibility(View.GONE);
                     String errorMessage = "Couldn't sign up, try again";
                     if(error instanceof VolleyFailWrapper) {
                         errorMessage = ((VolleyFailWrapper)error).getResult().getMsg();
@@ -92,6 +105,7 @@ public class SignUpActivity extends ActionBarActivity {
             }
         );
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
