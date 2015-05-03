@@ -63,9 +63,17 @@ public class PreferenceService {
 				Constants.PREFS_LOGIN_DEFAULT_PASSWORD_KEY);
 	}
 
-	public static void saveEmail(Context context, String email) {
+    public static String getName(Context context) {
+        return getFromPrefs(context, Constants.PREFS_LOGIN_NAME_KEY,
+                Constants.PREFS_LOGIN_DEFAULT_NAME_KEY);
+    }
 
-		saveToPrefs(context, Constants.PREFS_LOGIN_USERNAME_KEY, email);
+    public static void saveEmail(Context context, String email) {
+        saveToPrefs(context, Constants.PREFS_LOGIN_USERNAME_KEY, email);
+    }
+
+    public static void saveName(Context context, String name) {
+		saveToPrefs(context, Constants.PREFS_LOGIN_NAME_KEY, name);
 	}
 
 	public static void savePassword(Context context, String password) {

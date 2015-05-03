@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout android:layout_marginLeft="50dp">
+            <ImageView
+                android:id="@+id/bed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bed"></ImageView>
+            <TextView
+                android:id="@+id/bedTV"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/bed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45"
+                android:textSize="50dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout android:layout_marginLeft="50dp">
+                <ImageView
+                    android:id="@+id/treatment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_equipment"></ImageView>
+                <TextView
+                    android:id="@+id/treatmentTV"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/treatment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="45"
+                    android:textSize="50dp"/>
+            </RelativeLayout>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout android:layout_marginLeft="50dp">
+                <ImageView
+                    android:id="@+id/patient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_patient_big"></ImageView>
+                <TextView
+                    android:id="@+id/patientTV"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/patient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="45"
+                    android:textSize="50dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout android:layout_marginLeft="50dp">
+                <ImageView
+                    android:id="@+id/beacon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_beacon"></ImageView>
+                <TextView
+                    android:id="@+id/beaconTV"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/beacon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="45"
+                    android:textSize="50dp"/>
+            </RelativeLayout>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout android:layout_marginLeft="50dp">
+                <ImageView
+                    android:id="@+id/doctor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_doctor"></ImageView>
+                <TextView
+                    android:id="@+id/doctorTV"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/doctor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="45"
+                    android:textSize="50dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout android:layout_marginLeft="50dp">
+                <ImageView
+                    android:id="@+id/equipment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_treatment"></ImageView>
+                <TextView
+                    android:id="@+id/equipmentTV"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/equipment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="45"
+                    android:textSize="50dp"/>
+            </RelativeLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

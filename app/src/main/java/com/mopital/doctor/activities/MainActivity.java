@@ -7,22 +7,17 @@ import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.getpoi.beacon.PoiService;
+import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.mopital.doctor.R;
-import com.mopital.doctor.core.ServerApi;
-import com.mopital.doctor.core.ServerApiProvider;
-import com.mopital.doctor.core.gcm.GCMRegistrationService;
-import com.mopital.doctor.core.volley.responses.Result;
+import com.mopital.doctor.core.Global;
+import com.mopital.doctor.core.PreferenceService;
 import com.mopital.doctor.fragments.NavigationDrawerFragment;
-import com.mopital.doctor.models.MopitalUser;
 import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.utils.Constants;
 
@@ -30,25 +25,32 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class MainActivity extends ActionBarActivity {
+    @InjectView(R.id.fab1)
+    FloatingActionButton fab1;
+
+    @InjectView(R.id.fab2)
+    FloatingActionButton fab2;
+
+    @InjectView(R.id.fab3)
+    FloatingActionButton fab3;
+
+    @InjectView(R.id.fab_menu)
+    FloatingActionMenu menu1;
 
     @InjectView(R.id.app_bar)
     Toolbar toolbar;
 
     private static final String TAG = "MainActivity";
     private static final String MOPITAL_SECRET_KEY = "684AE112-170A-4BE8-A30B-C2F0BD17109F";
-    public static Activity activity;
 
     final String ID = "userUniqueIdTest1";
-
     private Handler mUiHandler = new Handler();
-    private ServerApi api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-        activity = this;
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -56,38 +58,50 @@ public class MainActivity extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
-        final FloatingActionMenu menu1 = (FloatingActionMenu) findViewById(R.id.fab_menu);
-        menu1.hideMenuButton(false);
+        String user = PreferenceService.getName(MainActivity.this.getApplicationContext());
+        drawerFragment.setUserName(user);
 
-        int delay = 400;
-        mUiHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                menu1.showMenuButton(true);
-            }
-        }, delay);
-        delay += 150;
+        fab1.setOnClickListener(clickListener);
+        fab2.setOnClickListener(clickListener);
+        fab3.setOnClickListener(clickListener);
+
+        //menu1.hideMenuButton(true);
         menu1.setClosedOnTouchOutside(true);
 
+        if (Global.detectedBeacons != null && Global.detectedBeacons.size() != 0) {
+            int count = 0;
+            for (Patient patient : Global.detectedBeacons) {
+                if (count == 0) {
+                    fab1.setVisibility(View.VISIBLE);
+                    fab1.setLabelText(patient.getName());
+                }
+                if (count == 1) {
+                    fab1.setVisibility(View.VISIBLE);
+                    fab2.setLabelText(patient.getName());
+                }
+                if (count == 2) {
+                    fab1.setVisibility(View.VISIBLE);
+                    fab3.setLabelText(patient.getName());
+                }
+                if (count == Global.detectedBeacons.size() - 1) {
+                    menu1.setVisibility(View.VISIBLE);
 
-        api = ServerApiProvider.serverApi();
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, error.getMessage() + "");
+                    int delay = 400;
+                        mUiHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                menu1.showMenuButton(true);
+                            }
+                        }, delay);
+                }
+                count++;
             }
-        };
-
-        Response.Listener<MopitalUser> listener = new Response.Listener<MopitalUser>() {
-            @Override
-            public void onResponse(MopitalUser result) {
-                Log.d(TAG, result.toString());
-            }
-        };
+        }
 
 //        api.signUp(this, "alpercem", "doctor", "alpercempolat@hotmail.com", "Alper@2014", listener, errorListener);
         //api.signIn(this, "alpercempolat@hotmail.com", "Alper@2014", listener, errorListener);
-        //Test login
+
+        /*
         GCMRegistrationService service = new GCMRegistrationService(this.getApplicationContext());
         service.register();
 
@@ -96,8 +110,29 @@ public class MainActivity extends ActionBarActivity {
             public void onResponse(Result response) {
                 Log.d(TAG, "send notify successful");
             }
-        }, errorListener);
+        }, errorListener);*/
     }
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Patient patient = null;
+            switch (v.getId()) {
+                case R.id.fab1:
+                    patient = Global.detectedBeacons.get(0);
+                    break;
+                case R.id.fab2:
+                    patient = Global.detectedBeacons.get(1);
+                    break;
+                case R.id.fab3:
+                    patient = Global.detectedBeacons.get(2);
+                    break;
+            }
+            Global.activePatient = patient;
+            Intent intent = new Intent(MainActivity.this, PatientActivity.class);
+            startActivity(intent);
+        }
+    };
 
     private void callLoginActivity() {
         Intent i = new Intent(MainActivity.this, SignInActivity.class);

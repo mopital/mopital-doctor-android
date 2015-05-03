@@ -10,6 +10,7 @@ import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.models.EquipmentPosition;
 import com.mopital.doctor.models.MopitalUser;
 import com.mopital.doctor.models.Patient;
+import com.mopital.doctor.models.Statistics;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
 
@@ -35,6 +36,7 @@ public class DefaultServerApi implements ServerApi {
     private static final String GET_LAST_POSITION_OF_EQUIPMENT_URL = BASE_API_URL + "equipment/last/position/";
     private static final String SAVE_GCM_URL = BASE_API_URL + "user/save/gcm";
     private static final String NOTIFY_USER_URL = BASE_API_URL + "user/notify";
+    private static final String STATISTICS_URL = BASE_API_URL + "statistics";
 
     public void getUser(Context context, String userId, Response.Listener<Patient> patientListener, Response.ErrorListener errorListener) {
 
@@ -123,6 +125,14 @@ public class DefaultServerApi implements ServerApi {
         }
 
         BaseVolleyPOSTRequest<Result> request = new BaseVolleyPOSTRequest<Result>(NOTIFY_USER_URL, requestBody.toString(), Result.class, null, listener, errorListener);
+
+        VolleyHTTPHandler.getInstance(context).addToRequestQueue(request);
+    }
+
+    @Override
+    public void getStatistics(Context context, Response.Listener<Statistics> listener, Response.ErrorListener errorListener) {
+
+        BaseVolleyGETRequest<Statistics> request = new BaseVolleyGETRequest<Statistics>(STATISTICS_URL, Statistics.class, null, listener, errorListener);
 
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(request);
     }

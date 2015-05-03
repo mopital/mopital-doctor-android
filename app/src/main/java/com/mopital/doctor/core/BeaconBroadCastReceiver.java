@@ -12,8 +12,11 @@ import com.getpoi.beacon.PoiService;
 import com.getpoi.beacon.objects.BeaconResponse;
 import com.getpoi.beacon.objects.Pois;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.mopital.doctor.R;
 import com.mopital.doctor.activities.MainActivity;
 import com.mopital.doctor.activities.PatientActivity;
@@ -32,19 +35,18 @@ public class BeaconBroadCastReceiver extends PoiBroadcastReceiver {
         String action = intent.getAction();
         Log.d(TAG, "onReceive action: " + action);
         if (action.equals(PoiService.ACTION_DETECT)) {
-            List<Pois> beacons = (List<Pois>) intent.getSerializableExtra("POIS");
+            final List<Pois> beacons = (List<Pois>) intent.getSerializableExtra("POIS");
+            Global.detectedBeacons = new ArrayList<Patient>();
+
             for (Pois beacon : beacons) {
                 Log.i("Poi found", "major: " + beacon.majorId + " minor: " + beacon.minorId);
-
                 Response.Listener<Patient> patientListener = new Response.Listener<Patient>() {
                     @Override
                     public void onResponse(Patient patient) {
-                        /*
-                        Global.activePatient = patient;
-                        Intent intent = new Intent(context, PatientActivity.class);
+                        Global.detectedBeacons.add(patient);
+                        Intent intent = new Intent(context, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);*/
-
+                        context.startActivity(intent);
                     }
                 };
                 Response.ErrorListener errorListener = new Response.ErrorListener() {

@@ -13,11 +13,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mopital.doctor.R;
 import com.mopital.doctor.activities.EquipmentActivity;
+import com.mopital.doctor.activities.MainActivity;
+import com.mopital.doctor.activities.StatisticsActivity;
 import com.mopital.doctor.adapters.DrawerAdapter;
+import com.mopital.doctor.core.Global;
 import com.mopital.doctor.models.DrawerItem;
+import com.mopital.doctor.view.controllers.BloodSugarMonitoringPopupController;
+import com.mopital.doctor.view.controllers.EmergencyCallPopupController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +45,7 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
     private boolean mFromSavedInstanceState;
 
     private View containerView;
+    private TextView userNameTV;
 
     public NavigationDrawerFragment() {
         // Required empty public constructor
@@ -57,6 +65,7 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
 
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+        userNameTV = (TextView) layout.findViewById(R.id.userName);
 
         mDrawerAdapter = new DrawerAdapter(getActivity(), getData());
         mDrawerAdapter.setClickListener(this);
@@ -68,7 +77,7 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
     //Navigation Drawer data
     public static List<DrawerItem> getData() {
         List<DrawerItem> data = new ArrayList<>();
-        String[] titles = {"Patients", "Equipments", "Statistics"};
+        String[] titles = {"Patients", "Equipments", "Statistics", "Emergency Call", "About"};
         for (int i = 0; i < titles.length; i++) {
             DrawerItem current;
             switch(i) {
@@ -84,11 +93,23 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
                     current = new DrawerItem(titles[i], R.drawable.ic_statistics);
                     data.add(current);
                     break;
+                case 3:
+                    current = new DrawerItem(titles[i], R.drawable.ic_call);
+                    data.add(current);
+                    break;
+                case 4:
+                    current = new DrawerItem(titles[i], R.drawable.ic_about);
+                    data.add(current);
+                    break;
                 default:
                     break;
             }
         }
         return data;
+    }
+
+    public void setUserName(String name){
+        userNameTV.setText(name);
     }
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
@@ -153,10 +174,20 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
     public void itemClicked(View view, int position) {
         switch (position) {
             case 0:
-                //startActivity(new Intent(getActivity(), ReportDetailActivity.class));
+                startActivity(new Intent(getActivity(), MainActivity.class));
                 break;
             case 1:
                 startActivity(new Intent(getActivity(), EquipmentActivity.class));
+                break;
+            case 2:
+                startActivity(new Intent(getActivity(), StatisticsActivity.class));
+                break;
+            case 3:
+                EmergencyCallPopupController controller = new EmergencyCallPopupController(containerView.getContext());
+                controller.showPopup();
+                break;
+            case 4:
+                Toast.makeText(getActivity(), "This application is developed by Bilkent University Computer Science students.", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;

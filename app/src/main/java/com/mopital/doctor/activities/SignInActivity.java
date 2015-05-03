@@ -77,6 +77,7 @@ public class SignInActivity extends ActionBarActivity {
                         Log.d(TAG, response.toString());
                         PreferenceService.saveEmail(SignInActivity.this.getApplicationContext(), email);
                         PreferenceService.savePassword(SignInActivity.this.getApplicationContext(), password);
+                        PreferenceService.saveName(SignInActivity.this.getApplicationContext(), response.getName());
                         Intent i = new Intent(SignInActivity.this, MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);

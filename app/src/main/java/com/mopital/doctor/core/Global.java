@@ -2,6 +2,7 @@ package com.mopital.doctor.core;
 
 import com.mopital.doctor.models.Patient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,4 +11,5 @@ import java.util.List;
 public class Global {
     public static List<Patient> patientList;
     public static Patient activePatient;
+    public static List<Patient> detectedBeacons;
 }

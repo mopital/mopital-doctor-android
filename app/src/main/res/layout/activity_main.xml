@@ -26,6 +26,7 @@
                 android:name="com.mopital.doctor.fragments.PatientFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 tools:layout="@layout/fragment_patient"></fragment>
 
             <com.github.clans.fab.FloatingActionMenu
@@ -37,6 +38,7 @@
                 android:paddingRight="10dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
+                android:visibility="gone"
                 fab:menu_labels_ellipsize="end"
                 fab:menu_labels_singleLine="true">
 
@@ -46,7 +48,8 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_fab"
                     fab:fab_size="mini"
-                    fab:fab_label="Item 1" />
+                    android:visibility="gone"
+                    fab:fab_label="Item 1"/>
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/fab2"
@@ -54,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_fab"
                     fab:fab_size="mini"
+                    android:visibility="gone"
                     fab:fab_label="Item 2" />
 
                 <com.github.clans.fab.FloatingActionButton
@@ -62,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_fab"
                     fab:fab_size="mini"
+                    android:visibility="gone"
                     fab:fab_label="Item 3" />
 
             </com.github.clans.fab.FloatingActionMenu>
