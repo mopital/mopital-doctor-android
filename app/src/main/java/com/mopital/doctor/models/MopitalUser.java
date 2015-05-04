@@ -10,6 +10,13 @@ public class MopitalUser {
     String email;
     String role;
 
+    public MopitalUser(String name, String department, String email, String role) {
+        this.name = name;
+        this.department = department;
+        this.email = email;
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }

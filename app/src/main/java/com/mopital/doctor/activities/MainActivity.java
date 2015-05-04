@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
         String user = PreferenceService.getName(MainActivity.this.getApplicationContext());
-        drawerFragment.setUserName(user);
+        drawerFragment.setUserProfile(user);
 
         fab1.setOnClickListener(clickListener);
         fab2.setOnClickListener(clickListener);
@@ -154,20 +154,4 @@ public class MainActivity extends ActionBarActivity {
         super.onStop();
         stopService(new Intent(MainActivity.this, PoiService.class));
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 }

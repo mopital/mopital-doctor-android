@@ -37,7 +37,6 @@ public class TreatmentAdapter extends ArrayAdapter<Treatment> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resource, parent, false);
 
-            final TextView dateTV = (TextView) convertView.findViewById(R.id.treatment_date);
             final TextView timeTV = (TextView) convertView.findViewById(R.id.treatment_time);
             final TextView tensionTV = (TextView) convertView.findViewById(R.id.treatment_tension);
             final TextView temperatureTV = (TextView) convertView.findViewById(R.id.treatment_temperature);
@@ -46,14 +45,13 @@ public class TreatmentAdapter extends ArrayAdapter<Treatment> {
             final TextView painTV = (TextView) convertView.findViewById(R.id.treatment_pain);
             final TextView treatmentTV = (TextView) convertView.findViewById(R.id.treatment_treatment);
 
-            holder = new ViewHolder(dateTV, timeTV, tensionTV, temperatureTV, pulseTV, respirationTV, painTV, treatmentTV);
+            holder = new ViewHolder(timeTV, tensionTV, temperatureTV, pulseTV, respirationTV, painTV, treatmentTV);
             convertView.setTag(holder);
         }
         else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.dateTV.setText(values.get(position).getDate());
-        holder.timeTV.setText(values.get(position).getTime());
+        holder.timeTV.setText(values.get(position).getDate());
         holder.tensionTV.setText(values.get(position).getTension());
         holder.temperatureTV.setText(values.get(position).getTemperature());
         holder.pulseTV.setText(values.get(position).getPulse());
@@ -65,7 +63,6 @@ public class TreatmentAdapter extends ArrayAdapter<Treatment> {
     }
 
     private static class ViewHolder {
-        public final TextView dateTV;
         public final TextView timeTV;
         public final TextView tensionTV;
         public final TextView temperatureTV;
@@ -74,9 +71,8 @@ public class TreatmentAdapter extends ArrayAdapter<Treatment> {
         public final TextView painTV;
         public final TextView treatmentTV;
 
-        private ViewHolder(TextView dateTV, TextView timeTV, TextView tensionTV, TextView temperatureTV, TextView pulseTV,
+        private ViewHolder(TextView timeTV, TextView tensionTV, TextView temperatureTV, TextView pulseTV,
                            TextView respirationTV, TextView painTV, TextView treatmentTV) {
-            this.dateTV = dateTV;
             this.timeTV = timeTV;
             this.tensionTV = tensionTV;
             this.temperatureTV = temperatureTV;

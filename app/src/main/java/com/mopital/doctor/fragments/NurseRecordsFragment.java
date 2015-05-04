@@ -22,6 +22,11 @@ import com.mopital.doctor.models.PatientPain;
 import com.mopital.doctor.view.controllers.BloodSugarMonitoringPopupController;
 import com.mopital.doctor.view.controllers.PeriodicMonitoringPopupController;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -101,8 +106,12 @@ public class NurseRecordsFragment extends Fragment {
         NurseRecords records = patient.getNurseRecords();
         PatientPain patientPain = records.getPatientPain();
 
+        Timestamp stamp = new Timestamp(records.getRecordedAt());
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = new Date(stamp.getTime());
+
         this.id.setText(records.getId());
-        this.recordedAt.setText(records.getRecordedAt() + "");
+        this.recordedAt.setText(dateFormat.format(date).toString());
         this.diagnosis.setText(records.getDiagnoses());
         this.allergy.setText(records.getAllergy());
         this.bloodType.setText(records.getBloodType());

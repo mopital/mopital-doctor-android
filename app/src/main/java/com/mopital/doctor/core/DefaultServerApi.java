@@ -12,6 +12,7 @@ import com.mopital.doctor.models.MopitalUser;
 import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.Statistics;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
+import com.mopital.doctor.models.wrappers.MopitalUserWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
 
 import org.json.JSONObject;
@@ -37,6 +38,7 @@ public class DefaultServerApi implements ServerApi {
     private static final String SAVE_GCM_URL = BASE_API_URL + "user/save/gcm";
     private static final String NOTIFY_USER_URL = BASE_API_URL + "user/notify";
     private static final String STATISTICS_URL = BASE_API_URL + "statistics";
+    private static final String GET_USERS_URL = BASE_API_URL + "users";
 
     public void getUser(Context context, String userId, Response.Listener<Patient> patientListener, Response.ErrorListener errorListener) {
 
@@ -133,6 +135,13 @@ public class DefaultServerApi implements ServerApi {
     public void getStatistics(Context context, Response.Listener<Statistics> listener, Response.ErrorListener errorListener) {
 
         BaseVolleyGETRequest<Statistics> request = new BaseVolleyGETRequest<Statistics>(STATISTICS_URL, Statistics.class, null, listener, errorListener);
+
+        VolleyHTTPHandler.getInstance(context).addToRequestQueue(request);
+    }
+
+    public void getUsers(Context context, Response.Listener<MopitalUserWrapper> listener, Response.ErrorListener errorListener){
+
+        BaseVolleyGETRequest<MopitalUserWrapper> request = new BaseVolleyGETRequest<MopitalUserWrapper>(GET_USERS_URL, MopitalUserWrapper.class, null, listener, errorListener);
 
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(request);
     }

@@ -9,13 +9,12 @@ import com.mopital.doctor.models.MopitalUser;
 import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.Statistics;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
+import com.mopital.doctor.models.wrappers.MopitalUserWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
-
-import java.util.List;
 
 /**
  * Created by ahmetkucuk on 01/03/15.
- *
+ * <p/>
  * Define server methods
  */
 public interface ServerApi {
@@ -37,4 +36,6 @@ public interface ServerApi {
     public void notifyUser(Context context, String email, String message, Response.Listener<Result> listener, Response.ErrorListener errorListener);
 
     public void getStatistics(Context context, Response.Listener<Statistics> statisticsListener, Response.ErrorListener errorListener);
+
+    public void getUsers(Context context, Response.Listener<MopitalUserWrapper> listener, Response.ErrorListener errorListener);
 }

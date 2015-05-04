@@ -41,7 +41,6 @@ public class PatientProfileFragment extends Fragment {
     @InjectView(R.id.patient_height)
     TextView patientHeight;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_patient_profile, container, false);
@@ -56,6 +55,18 @@ public class PatientProfileFragment extends Fragment {
     }
 
     public void updateInfo(Patient patient){
+        if(patient.getName() == null || patient.getName().equals(""))
+            patient.setName("Unknown");
+
+        if(patient.getBlood_type() == null || patient.getBlood_type().equals(""))
+            patient.setBlood_type("Unknown");
+
+        if(patient.getAdmission_date() == null || patient.getAdmission_date().equals(""))
+            patient.setAdmission_date("Unknown");
+
+        if(patient.getFile_no() == null || patient.getFile_no().equals(""))
+            patient.setFile_no("Unknown");
+
         this.patientName.setText(patient.getName());
         this.patientBloodType.setText(patient.getBlood_type());
         this.patientAdmissionDate.setText(patient.getAdmission_date());

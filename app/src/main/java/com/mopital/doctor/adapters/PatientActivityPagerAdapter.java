@@ -38,7 +38,7 @@ public class PatientActivityPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return "Treatments";
             case 2:
-                return "Nurse Records";
+                return "Records";
         }
         return "";
     }

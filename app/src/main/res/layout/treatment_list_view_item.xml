@@ -12,37 +12,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time: "
-            style="@style/PatientTableKey"
-            android:layout_marginBottom="5dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/treatment_date"
-            android:text="Time"
-            style="@style/PatientTableValue"
-             android:layout_marginBottom="5dp"/>
-        </TableRow>
-
-        <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Date: "
             style="@style/PatientTableKey"
             android:layout_marginBottom="5dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/treatment_time"
-                android:text="Date"
-                style="@style/PatientTableValue"
-                android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/treatment_time"
+            android:text="Date"
+            style="@style/PatientTableValue"
+             android:layout_marginBottom="5dp"/>
         </TableRow>
 
-        <TableRow>
+         <TableRow>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

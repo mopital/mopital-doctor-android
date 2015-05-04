@@ -10,6 +10,10 @@ import android.widget.TextView;
 import com.mopital.doctor.R;
 import com.mopital.doctor.models.BloodSugarMonitoring;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,7 +48,12 @@ public class BloodSugarMonitoringAdapter extends ArrayAdapter<BloodSugarMonitori
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.recordedAtTV.setText(values.get(position).getRecordedAt() + "");
+        Timestamp stamp = new Timestamp(values.get(position).getRecordedAt());
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = new Date(stamp.getTime());
+        dateFormat.format(date).toString();
+
+        holder.recordedAtTV.setText(dateFormat.format(date).toString());
         holder.urineTV.setText(values.get(position).getUrineGlucose());
         holder.bloodTV.setText(values.get(position).getBloodGlucose());
 

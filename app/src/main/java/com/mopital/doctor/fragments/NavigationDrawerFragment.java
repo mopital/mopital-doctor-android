@@ -3,6 +3,13 @@ package com.mopital.doctor.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -13,17 +20,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mopital.doctor.R;
 import com.mopital.doctor.activities.EquipmentActivity;
 import com.mopital.doctor.activities.MainActivity;
+import com.mopital.doctor.activities.SignInActivity;
 import com.mopital.doctor.activities.StatisticsActivity;
 import com.mopital.doctor.adapters.DrawerAdapter;
-import com.mopital.doctor.core.Global;
+import com.mopital.doctor.core.PreferenceService;
 import com.mopital.doctor.models.DrawerItem;
-import com.mopital.doctor.view.controllers.BloodSugarMonitoringPopupController;
+import com.mopital.doctor.utils.CircularImageView;
+import com.mopital.doctor.utils.Constants;
 import com.mopital.doctor.view.controllers.EmergencyCallPopupController;
 
 import java.util.ArrayList;
@@ -46,6 +56,7 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
 
     private View containerView;
     private TextView userNameTV;
+    private ImageView userImage;
 
     public NavigationDrawerFragment() {
         // Required empty public constructor
@@ -66,6 +77,7 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         userNameTV = (TextView) layout.findViewById(R.id.userName);
+        userImage = (CircularImageView) layout.findViewById(R.id.user_icon);
 
         mDrawerAdapter = new DrawerAdapter(getActivity(), getData());
         mDrawerAdapter.setClickListener(this);
@@ -73,14 +85,13 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return layout;
     }
-
     //Navigation Drawer data
     public static List<DrawerItem> getData() {
         List<DrawerItem> data = new ArrayList<>();
-        String[] titles = {"Patients", "Equipments", "Statistics", "Emergency Call", "About"};
+        String[] titles = {"Patients", "Equipments", "Statistics", "Emergency Call", "About", "Logout"};
         for (int i = 0; i < titles.length; i++) {
             DrawerItem current;
-            switch(i) {
+            switch (i) {
                 case 0:
                     current = new DrawerItem(titles[i], R.drawable.ic_patients);
                     data.add(current);
@@ -101,6 +112,10 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
                     current = new DrawerItem(titles[i], R.drawable.ic_about);
                     data.add(current);
                     break;
+                case 5:
+                    current = new DrawerItem(titles[i], R.drawable.ic_logout);
+                    data.add(current);
+                    break;
                 default:
                     break;
             }
@@ -108,8 +123,21 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
         return data;
     }
 
-    public void setUserName(String name){
+    public void setUserProfile(String name) {
         userNameTV.setText(name);
+        setUserImage(name);
+    }
+
+    private void setUserImage(String user) {
+        Bitmap bitmap;
+        if(user.contains("lper"))
+            bitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_alper)).getBitmap();
+        else if(user.contains("hmet"))
+            bitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_ahmet)).getBitmap();
+        else
+            bitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_default_picture)).getBitmap();
+
+        userImage.setImageBitmap(bitmap);
     }
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
@@ -188,6 +216,11 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
                 break;
             case 4:
                 Toast.makeText(getActivity(), "This application is developed by Bilkent University Computer Science students.", Toast.LENGTH_LONG).show();
+                break;
+            case 5:
+                PreferenceService.removeCredentials(containerView.getContext());
+                Intent i = new Intent(containerView.getContext(), SignInActivity.class);
+                startActivityForResult(i, Constants.LOG_OUT_REQUEST_CODE);
                 break;
             default:
                 break;

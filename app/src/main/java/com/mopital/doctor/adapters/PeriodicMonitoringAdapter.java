@@ -11,6 +11,10 @@ import com.mopital.doctor.R;
 import com.mopital.doctor.models.PeriodicMonitoring;
 import com.mopital.doctor.models.Treatment;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,7 +53,11 @@ public class PeriodicMonitoringAdapter extends ArrayAdapter<PeriodicMonitoring> 
         else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.recordedAtTV.setText(values.get(position).getRecordedAt() + "");
+        Timestamp stamp = new Timestamp(values.get(position).getRecordedAt());
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = new Date(stamp.getTime());
+
+        holder.recordedAtTV.setText(dateFormat.format(date).toString());
         holder.tensionTV.setText(values.get(position).getTension() + "");
         holder.feverTV.setText(values.get(position).getFever() + "");
         holder.pulseTV.setText(values.get(position).getPulse() + "");
