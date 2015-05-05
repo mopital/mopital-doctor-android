@@ -13,6 +13,7 @@ import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.Statistics;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
 import com.mopital.doctor.models.wrappers.MopitalUserWrapper;
+import com.mopital.doctor.models.wrappers.PatientBeaconMapWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
 
 import org.json.JSONObject;
@@ -39,6 +40,7 @@ public class DefaultServerApi implements ServerApi {
     private static final String NOTIFY_USER_URL = BASE_API_URL + "user/notify";
     private static final String STATISTICS_URL = BASE_API_URL + "statistics";
     private static final String GET_USERS_URL = BASE_API_URL + "users";
+    private static final String GET_PATIENT_BEACON_MAP_URL = BASE_API_URL + "patient/beacon/map";
 
     public void getUser(Context context, String userId, Response.Listener<Patient> patientListener, Response.ErrorListener errorListener) {
 
@@ -144,6 +146,15 @@ public class DefaultServerApi implements ServerApi {
         BaseVolleyGETRequest<MopitalUserWrapper> request = new BaseVolleyGETRequest<MopitalUserWrapper>(GET_USERS_URL, MopitalUserWrapper.class, null, listener, errorListener);
 
         VolleyHTTPHandler.getInstance(context).addToRequestQueue(request);
+    }
+
+    @Override
+    public void getPatientBeaconMap(Context context, Response.Listener<PatientBeaconMapWrapper> listener, Response.ErrorListener errorListener) {
+
+        BaseVolleyGETRequest<PatientBeaconMapWrapper> request = new BaseVolleyGETRequest<PatientBeaconMapWrapper>(GET_PATIENT_BEACON_MAP_URL, PatientBeaconMapWrapper.class, null, listener, errorListener);
+
+        VolleyHTTPHandler.getInstance(context).addToRequestQueue(request);
+
     }
 }
 

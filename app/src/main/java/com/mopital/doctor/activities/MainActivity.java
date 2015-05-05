@@ -1,14 +1,11 @@
 package com.mopital.doctor.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.getpoi.beacon.PoiService;
@@ -34,6 +31,12 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.fab3)
     FloatingActionButton fab3;
 
+    @InjectView(R.id.fab4)
+    FloatingActionButton fab4;
+
+    @InjectView(R.id.fab5)
+    FloatingActionButton fab5;
+
     @InjectView(R.id.fab_menu)
     FloatingActionMenu menu1;
 
@@ -45,6 +48,8 @@ public class MainActivity extends ActionBarActivity {
 
     final String ID = "userUniqueIdTest1";
     private Handler mUiHandler = new Handler();
+
+    public static MainActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,39 +69,60 @@ public class MainActivity extends ActionBarActivity {
         fab1.setOnClickListener(clickListener);
         fab2.setOnClickListener(clickListener);
         fab3.setOnClickListener(clickListener);
+        fab4.setOnClickListener(clickListener);
+        fab5.setOnClickListener(clickListener);
 
         //menu1.hideMenuButton(true);
         menu1.setClosedOnTouchOutside(true);
+        activity = this;
+        update();
 
-        if (Global.detectedBeacons != null && Global.detectedBeacons.size() != 0) {
+        /*
+        boolean hasElm = false;
+        if(Global.detectedPatientList != null && Global.detectedPatientList.length != 0) {
+            for (int i = 0; i < Global.detectedPatientList.length; i++) {
+                if (Global.detectedPatientList[i] != null)
+                    hasElm = true;
+            }
+        }
+
+        if (hasElm) {
             int count = 0;
-            for (Patient patient : Global.detectedBeacons) {
+            for (Patient patient : Global.detectedPatientList) {
+                if(patient == null)
+                    break;
                 if (count == 0) {
                     fab1.setVisibility(View.VISIBLE);
                     fab1.setLabelText(patient.getName());
                 }
                 if (count == 1) {
-                    fab1.setVisibility(View.VISIBLE);
+                    fab2.setVisibility(View.VISIBLE);
                     fab2.setLabelText(patient.getName());
                 }
                 if (count == 2) {
-                    fab1.setVisibility(View.VISIBLE);
+                    fab3.setVisibility(View.VISIBLE);
                     fab3.setLabelText(patient.getName());
                 }
-                if (count == Global.detectedBeacons.size() - 1) {
-                    menu1.setVisibility(View.VISIBLE);
-
-                    int delay = 400;
-                        mUiHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                menu1.showMenuButton(true);
-                            }
-                        }, delay);
+                if (count == 3) {
+                    fab4.setVisibility(View.VISIBLE);
+                    fab4.setLabelText(patient.getName());
+                }
+                if (count == 4) {
+                    fab5.setVisibility(View.VISIBLE);
+                    fab5.setLabelText(patient.getName());
                 }
                 count++;
             }
-        }
+            menu1.setVisibility(View.VISIBLE);
+
+            int delay = 400;
+            mUiHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    menu1.showMenuButton(true);
+                }
+            }, delay);
+        }*/
 
 //        api.signUp(this, "alpercem", "doctor", "alpercempolat@hotmail.com", "Alper@2014", listener, errorListener);
         //api.signIn(this, "alpercempolat@hotmail.com", "Alper@2014", listener, errorListener);
@@ -113,19 +139,72 @@ public class MainActivity extends ActionBarActivity {
         }, errorListener);*/
     }
 
+    public void update(){
+        boolean hasElm = false;
+        if(Global.detectedPatientList != null && Global.detectedPatientList.length != 0) {
+            for (int i = 0; i < Global.detectedPatientList.length; i++) {
+                if (Global.detectedPatientList[i] != null)
+                    hasElm = true;
+            }
+        }
+        if (hasElm) {
+            int count = 0;
+            for (Patient patient : Global.detectedPatientList) {
+                if(patient == null)
+                    break;
+                if (count == 0) {
+                    fab1.setVisibility(View.VISIBLE);
+                    fab1.setLabelText(patient.getName());
+                }
+                if (count == 1) {
+                    fab2.setVisibility(View.VISIBLE);
+                    fab2.setLabelText(patient.getName());
+                }
+                if (count == 2) {
+                    fab3.setVisibility(View.VISIBLE);
+                    fab3.setLabelText(patient.getName());
+                }
+                if (count == 3) {
+                    fab4.setVisibility(View.VISIBLE);
+                    fab4.setLabelText(patient.getName());
+                }
+                if (count == 4) {
+                    fab5.setVisibility(View.VISIBLE);
+                    fab5.setLabelText(patient.getName());
+                }
+                count++;
+            }
+            menu1.setVisibility(View.VISIBLE);
+
+            int delay = 400;
+            mUiHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    menu1.showMenuButton(true);
+                }
+            }, delay);
+        }
+    }
+
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Patient patient = null;
             switch (v.getId()) {
                 case R.id.fab1:
-                    patient = Global.detectedBeacons.get(0);
+                    patient = Global.detectedPatientList[0];
                     break;
                 case R.id.fab2:
-                    patient = Global.detectedBeacons.get(1);
+                    patient = Global.detectedPatientList[1];
                     break;
                 case R.id.fab3:
-                    patient = Global.detectedBeacons.get(2);
+                    patient = Global.detectedPatientList[2];
+                    break;
+                case R.id.fab4:
+                    patient = Global.detectedPatientList[3];
+                    break;
+                case R.id.fab5:
+                    patient = Global.detectedPatientList[4];
                     break;
             }
             Global.activePatient = patient;

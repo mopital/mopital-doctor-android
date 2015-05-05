@@ -69,6 +69,24 @@
                     android:visibility="gone"
                     fab:fab_label="Item 3" />
 
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_fab"
+                    fab:fab_size="mini"
+                    android:visibility="gone"
+                    fab:fab_label="Item 4" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_fab"
+                    fab:fab_size="mini"
+                    android:visibility="gone"
+                    fab:fab_label="Item 5" />
+
             </com.github.clans.fab.FloatingActionMenu>
 
         </FrameLayout>

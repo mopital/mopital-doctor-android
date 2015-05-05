@@ -10,6 +10,7 @@ import com.mopital.doctor.models.Patient;
 import com.mopital.doctor.models.Statistics;
 import com.mopital.doctor.models.wrappers.EquipmentListWrapper;
 import com.mopital.doctor.models.wrappers.MopitalUserWrapper;
+import com.mopital.doctor.models.wrappers.PatientBeaconMapWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
 
 /**
@@ -38,4 +39,6 @@ public interface ServerApi {
     public void getStatistics(Context context, Response.Listener<Statistics> statisticsListener, Response.ErrorListener errorListener);
 
     public void getUsers(Context context, Response.Listener<MopitalUserWrapper> listener, Response.ErrorListener errorListener);
+
+    public void getPatientBeaconMap(Context context, Response.Listener<PatientBeaconMapWrapper> listener, Response.ErrorListener errorListener);
 }

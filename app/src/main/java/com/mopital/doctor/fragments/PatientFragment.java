@@ -29,9 +29,12 @@ import com.mopital.doctor.core.ServerApi;
 import com.mopital.doctor.core.ServerApiProvider;
 import com.mopital.doctor.core.volley.responses.Result;
 import com.mopital.doctor.models.Patient;
+import com.mopital.doctor.models.PatientBeaconMap;
+import com.mopital.doctor.models.wrappers.PatientBeaconMapWrapper;
 import com.mopital.doctor.models.wrappers.PatientListWrapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -84,6 +87,7 @@ public class PatientFragment extends Fragment implements ListView.OnItemClickLis
                                 R.layout.patient_list_view_item, response.getPatientList());
                         Global.patientList = response.getPatientList();
                         patientLV.setAdapter(adapter);
+                        getPatientBeaconMapping();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -93,6 +97,31 @@ public class PatientFragment extends Fragment implements ListView.OnItemClickLis
                 }
         );
     }
+
+    private void getPatientBeaconMapping(){
+        if(Global.patientBeaconMap == null)
+            Global.patientBeaconMap = new HashMap<>();
+        if(Global.patientBeaconMap.size() == 0) {
+            api.getPatientBeaconMap(context, new Response.Listener<PatientBeaconMapWrapper>() {
+                @Override
+                public void onResponse(PatientBeaconMapWrapper response) {
+                    List<PatientBeaconMap> patientBeaconMaps = response.getPatientBeaconMapList();
+                    for (PatientBeaconMap patientBeaconMap : patientBeaconMaps) {
+                        for (int i = 0; i < Global.patientList.size(); i++) {
+                            if (Global.patientList.get(i).getId().equals(patientBeaconMap.getPatientId()))
+                                Global.patientBeaconMap.put(patientBeaconMap.getBeaconMinor(), Global.patientList.get(i));
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+        }
+    }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
